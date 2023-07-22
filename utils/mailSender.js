@@ -22,7 +22,7 @@ const mailSender = async (email, title, body) => {
         return info
 
     } catch (err) {
-        console.log("unable to send otp");
+        console.log("unable to send mail");
         console.log(err);
     }
 }
