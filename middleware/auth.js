@@ -37,11 +37,29 @@ const auth = async (req, res, next) => {
 }
 
 // is student
-
+const isStudent = async (req, res, next) => {
+    try {
+        const user = req.user
+        if (user.accountType === "student") {
+            next()
+        } else {
+            return res.status(403).json({
+                success: false,
+                message: "you are not a student"
+            })
+        }
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({
+            success: false,
+            message: "user role cannot be verified"
+        })
+    }
+}
 
 // is instructor
 
 
 // is admin
 
-module.exports = { auth }
+module.exports = { auth, isStudent }
