@@ -209,5 +209,17 @@ const login = async (req, res) => {
 }
 
 // change password
+const changePassword = async (req, res) => {
+    try {
+        // get data from req body
 
-module.exports = { sendOtp, signup }
+    } catch (err) {
+        console.log(`not able to change a password ${err}`);
+        return res.status(400).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+module.exports = { sendOtp, signup, login, changePassword }
