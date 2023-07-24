@@ -4,6 +4,7 @@ const Otp = require("../models/otp")
 const otpGenerator = require('otp-generator')
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
+const mailSender = require("../utils/mailSender")
 require("dotenv").config()
 
 // otp generator
@@ -32,7 +33,7 @@ const sendOtp = async (req, res) => {
         console.log(`generated otp are  : - > ${otp}`);
 
         // check unique otp or not
-        const result = await Otp.findOne({ otp: otp })
+        let result = await Otp.findOne({ otp: otp })
         while (result) {
             otp = otpGenerator.generate(6, {
                 upperCaseAlphabets: false,
@@ -211,17 +212,41 @@ const login = async (req, res) => {
 // change password
 const changePassword = async (req, res) => {
     try {
-        const { email, password } = req.body
-        const user = await User.findOne({ email })
-        if (!user) {
-            return res.status(401).json({
+        // get old password new password and confirm password
+        const { oldPassword, newPassword, confirmPassword } = req.body
+        if (!oldPassword || !newPassword || !confirmPassword) {
+            return res.status(403).json({
                 success: false,
-                message: "user is not registered"
+                message: "please fill all the fields"
             })
         }
-        const hashedPassword = await bcrypt.hash(password, 10)
+
+        // validate
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "password and confirm password value does not match"
+            })
+        }
+
+        // Check if the old password matches the current password in the database
+        const user = await User.findOne({ email: req.user.email });
+        const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
+        if (!isOldPasswordValid) {
+            return res.status(401).json({
+                success: false,
+                message: "Old password is incorrect"
+            });
+        }
+
+        // update password in db
+        hashedPassword = await bcrypt.hash(newPassword, 10)
         user.password = hashedPassword
-        await user.save()
+        await User.save();
+        // send mail password updated 
+        mailSender(user.email, "password updated", "your password changed successfully")
+
+        // success response
         return res.status(200).json({
             success: true,
             message: "password changed successfully"
