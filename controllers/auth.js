@@ -211,8 +211,21 @@ const login = async (req, res) => {
 // change password
 const changePassword = async (req, res) => {
     try {
-        // get data from req body
-
+        const { email, password } = req.body
+        const user = await User.findOne({ email })
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: "user is not registered"
+            })
+        }
+        const hashedPassword = await bcrypt.hash(password, 10)
+        user.password = hashedPassword
+        await user.save()
+        return res.status(200).json({
+            success: true,
+            message: "password changed successfully"
+        })
     } catch (err) {
         console.log(`not able to change a password ${err}`);
         return res.status(400).json({
