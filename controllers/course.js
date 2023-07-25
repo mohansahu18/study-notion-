@@ -94,5 +94,29 @@ const createCourse = async (req, res) => {
 }
 
 // get all course handler function
+const showAllCourses = async (req, res) => {
+    try {
+        const allCourses = await Course.find({}, {
+            courseName: true,
+            price: true,
+            thumbnail: true,
+            instructor: true,
+            ratingAndReview: true,
+            studentEnroll: true
+        }).populate("instructor").exec()
+        return res.status(200).json({
+            success: false,
+            message: "successfully fetch the all  courses",
+            data: allCourses
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: "not able to fetch the course",
+            error: err.message
+        })
+    }
+}
 
-module.exports = { createCourse }
+module.exports = { createCourse, allCourses }
