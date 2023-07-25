@@ -79,8 +79,43 @@ const updateSection = async (req, res) => {
             message: "not able to create section",
             error: err.message
         })
+    }
+}
+
+const deleteSection = async (req, res) => {
+    try {
+        // fetch data
+        const { sectionId } = req.params
+
+        // validate
+        if (!sectionId) {
+            return res.status(400).json({
+                success: false,
+                message: "section id is require"
+            })
+        }
+
+        // delete section
+        const deletedSection = await Section.findByIdAndDelete(
+            { sectionId }
+        )
+
+        // return success response
+        return res.status(201).json({
+            success: true,
+            message: "section deleted successfully",
+            data: deletedSection
+        })
+
+    } catch (err) {
+        console.log("error in deleting a section ", err);
+        return res.status(500).json({
+            success: true,
+            message: "not able to delete section",
+            error: err.message
+        })
 
     }
 }
 
-module.exports = { createSection, updateSection }
+module.exports = { createSection, updateSection, deleteSection }
