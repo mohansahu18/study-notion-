@@ -2,6 +2,7 @@ const SubSection = require("../models/subSection")
 const Section = require("../models/section")
 const CourseProgress = require("../models/courseProgress")
 const uploadImageToCloudinary = require("../utils/imageUploader")
+const { ObjectId } = require('mongoose');
 
 const createSubSection = async (req, res) => {
     try {
@@ -106,6 +107,43 @@ const updateSubSection = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "not able to update sub section",
+            error: err.message
+        })
+    }
+}
+
+const deleteSubSection = async (req, res) => {
+    try {
+        // fetch data
+        const { subSectionId } = req.params
+        let deletedSubSection;
+        if (!ObjectId.isValid(subSectionId)) {
+            return res.status(400).json({
+                success: false,
+                message: "sub section id is required"
+            })
+        }
+        else {
+            deletedSubSection = await SubSection.findByIdAndDelete({ _id: subSectionId })
+            if (!deletedSubSection) {
+                return res.status(404).json({
+                    success: false,
+                    message: "sub section not found"
+                })
+            }
+        }
+        return res.status(200).json({
+            success: true,
+            message: "sub section deleted successfully",
+            data: deletedSubSection
+        })
+
+
+    } catch (err) {
+        console.log(`not able to delete subsection ${err}`);
+        return res.status(500).json({
+            success: false,
+            message: "not able to delete subsection",
             error: err.message
         })
     }
