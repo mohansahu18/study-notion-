@@ -1,6 +1,6 @@
-const Tags = require("../models/tags")
+const Category = require("../models/category")
 
-const createTag = async (req, res) => {
+const createCategory = async (req, res) => {
     try {
 
         // fetch data
@@ -15,44 +15,44 @@ const createTag = async (req, res) => {
         }
 
         // create entry in db
-        const tagsDetails = await Tags.create({
+        const categoryDetails = await Category.create({
             name, description
         })
 
         // return success response
         return res.status(200).json({
             success: true,
-            message: "tags created successfully",
-            data: tagsDetails
+            message: "category created successfully",
+            data: categoryDetails
         })
     } catch (err) {
-        console.error(`Failed to create tags : - > ${err}`);
+        console.error(`Failed to create category : - > ${err}`);
         return res.status(500).json({
             success: false,
-            message: "Unable to create tags. Please try again later."
+            message: "Unable to create category. Please try again later."
         })
     }
 }
 
-const showAllTags = async (req, res) => {
+const showAllCategory = async (req, res) => {
     try {
-        const allTags = await Tags.find({},
+        const allCategory = await Category.find({},
             { name: true },
             { description: true }
         )
         return res.status(200).json({
             success: true,
-            message: "tags fetched successfully",
-            data: allTags
+            message: "category fetched successfully",
+            data: allCategory
         })
 
     } catch (err) {
-        console.error(`Failed to create tags : - > ${err}`);
+        console.error(`Failed to fetch category : - > ${err}`);
         return res.status(500).json({
             success: false,
-            message: "Unable to fetch tags. Please try again later."
+            message: "Unable to fetch category. Please try again later."
         })
 
     }
 }
-module.exports = { createTag }
+module.exports = { createCategory, showAllCategory }

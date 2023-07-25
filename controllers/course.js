@@ -1,6 +1,6 @@
 const Course = require("../models/course")
 const User = require('../models/course')
-const Tags = require("../models/tags")
+const Category = require("../models/category")
 const uploadImageToCloudinary = require("../utils/imageUploader")
 require("dotenv").config()
 
@@ -8,7 +8,7 @@ require("dotenv").config()
 const createCourse = async (req, res) => {
     try {
         // fetch data
-        const { courseName, courseDescription, whatYouWillLearn, price, tags } = req.body
+        const { courseName, courseDescription, whatYouWillLearn, price, category } = req.body
 
         // fetch thumbnail
         const { thumbnail } = req.files.thumbnailImage
@@ -32,12 +32,12 @@ const createCourse = async (req, res) => {
             })
         }
 
-        // check given tag is valid or not
-        const tagDetail = await Tags.findById(tags)
-        if (!tagDetail) {
+        // check given category is valid or not
+        const categoryDetail = await Category.findById(category)
+        if (!categoryDetail) {
             return res.status(404).json({
                 success: false,
-                message: "tags details not found"
+                message: "category details not found"
             })
         }
 
@@ -49,7 +49,7 @@ const createCourse = async (req, res) => {
             courseName,
             courseDescription,
             price,
-            tags,
+            category,
             whatYouWillLearn,
             instructor: instructorDetail._id,
             thumbnail: thumbnailImage.secure_url
@@ -66,9 +66,9 @@ const createCourse = async (req, res) => {
             { new: true }
         )
 
-        // update tags schema
-        await Tags.findByIdAndUpdate(
-            { _id: tagDetail._id },
+        // update category schema
+        await Category.findByIdAndUpdate(
+            { _id: categoryDetail._id },
             {
                 $push: {
                     course: newCourse._id
