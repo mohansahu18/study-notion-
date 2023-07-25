@@ -42,7 +42,7 @@ const createCourse = async (req, res) => {
         }
 
         // upload image to cloudinary
-        const thumbnailImage = await uploadImageToCloudinary(thumbnailImage, process.env.FOLDER_name)
+        const thumbnailImage = await uploadImageToCloudinary(thumbnailImage, process.env.FOLDER_NAME)
 
         // create entry of new course
         const newCourse = await Course.create({
