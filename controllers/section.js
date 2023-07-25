@@ -1,5 +1,7 @@
 const Section = require("../models/section")
 const Course = require('../models/course')
+
+// create section handler
 const createSection = async (req, res) => {
     try {
         // data fetch
@@ -41,4 +43,44 @@ const createSection = async (req, res) => {
     }
 }
 
-module.exports = { createSection }
+// update section handler
+const updateSection = async (req, res) => {
+    try {
+        // fetch data
+        const { sectionId, sectionName } = req.body
+
+        // validate
+        if (!sectionId || !sectionName) {
+            return res.status(400).json({
+                success: false,
+                message: "all fields are require"
+            })
+
+        }
+
+        // update section
+        const updatedSection = await Section.findByIdAndUpdate(
+            { _id: sectionId },
+            { sectionName },
+            { new: true }
+        )
+
+        // return success response
+        return res.status(201).json({
+            success: true,
+            message: "section updated successfully",
+            data: updatedSection
+        })
+
+    } catch (err) {
+        console.log("error in creating a section ", err);
+        return res.status(500).json({
+            success: true,
+            message: "not able to create section",
+            error: err.message
+        })
+
+    }
+}
+
+module.exports = { createSection, updateSection }
