@@ -12,10 +12,12 @@ const categorySchema = new mongoose.Schema({
         trim: true,
         required: true
     },
-    course: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
-    }
+    course: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Course",
+        }
+    ]
 })
 
 module.exports = mongoose.model("Category", categorySchema)
