@@ -3,6 +3,7 @@ const User = require("../models/user")
 const Course = require("../models/course")
 const { default: mongoose } = require("mongoose")
 
+
 // create rating handler function
 const createRating = async (req, res) => {
     try {
@@ -121,7 +122,33 @@ const getAverageRating = async (req, res) => {
         })
     }
 }
+
 // get all rating handler function
+const getAllRatingAndReview = async (req, res) => {
+    try {
+        const allRatingAndReview = await RatingAndReview.find({})
+            .sort({ rating: "desc" })
+            .populate({
+                path: "user",
+                select: "firstName lastName email image"
+            })
+            .populate({
+                path: "course",
+                select: "courseName"
+            })
+        return res.status(200).json({
+            success: true,
+            message: "successfully get all rating and review",
+            data: allRatingAndReview
+        })
+    } catch (err) {
+        console.log(`issue with getting rating and review : - >${err}`);
+        return res.status(500).json({
+            success: false,
+            message: "not able to get rating and review",
+            error: err.message
+        })
+    }
+}
 
-
-module.exports = { createRating, getAverageRating }
+module.exports = { createRating, getAverageRating, getAllRatingAndReview }
