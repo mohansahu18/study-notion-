@@ -1,6 +1,7 @@
 const RatingAndReview = require("../models/ratingAndReview")
 const User = require("../models/user")
 const Course = require("../models/course")
+const { default: mongoose } = require("mongoose")
 
 // create rating handler function
 const createRating = async (req, res) => {
@@ -71,6 +72,56 @@ const createRating = async (req, res) => {
 
     }
 }
+
 // get average rating handler function
+const getAverageRating = async (req, res) => {
+    try {
+        // fetch data
+        const courseId = req.body.courseId
+
+        // calculate Average rating
+        const result = await RatingAndReview.aggregate([
+            {
+                $match: {
+                    course: new mongoose.Schema.Types.ObjectId(courseId)
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    averageRating: {
+                        $avg: { $rating }
+                    }
+                }
+            }
+        ])
+
+        // return rating
+        if (result.length > 0) {
+            return res.status(200).json({
+                success: true,
+                message: "successfully get average rating",
+                averageRating: result[0].averageRating
+            })
+        }
+        // if no rating is there
+        return res.status(404).json({
+            success: false,
+            message: "no rating found",
+            averageRating: 0
+        })
+
+
+    } catch (err) {
+        console.log(`issue with getting average rating : - >${err}`);
+        return res.status(500).json({
+            success: false,
+            message: "not able to get average rating",
+            error: err.message
+        })
+    }
+}
 // get all rating handler function
 
+
+module.exports = { createRating, getAverageRating }
