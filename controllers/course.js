@@ -119,4 +119,50 @@ const showAllCourses = async (req, res) => {
     }
 }
 
+// get all detail of particular course
+const getCourseDetail = async (req, res) => {
+    try {
+        // fetch course id
+        const { courseId } = req.params
+
+        // display details
+        const courseDetail = await Course.find(
+            { _id: courseId }).populate({
+                path: "instructor",
+                populate: {
+                    path: "additionalDetails"
+                }
+            }).populate("category")
+            .populate("ratingAndReview")
+            .populate({
+                path: "courseContent",
+                populate: {
+                    path: "Section"
+                }
+            })
+            .exec()
+
+        // validate
+        if (!courseDetail) {
+            return res.status(404).json({
+                success: false,
+                message: `could not find course with ${courseId}`
+            })
+        }
+
+        // return success response
+        return res.status(200).json({
+            success: true,
+            message: "successfully fetch the course detail",
+            data: courseDetail
+        })
+    } catch (err) {
+        console.log(`error while fetching the course detail : - >${err}`);
+        return res.status(500).json({
+            success: false,
+            message: 'error while fetching the course detail',
+            error: err.message
+        })
+    }
+}
 module.exports = { createCourse, allCourses }

@@ -45,7 +45,7 @@ const courseSchema = new mongoose.Schema({
         ref: "Category"
     },
     tags: {
-        type: String,
+        type: [String],
         require: true
     },
     studentEnroll: [
@@ -54,7 +54,11 @@ const courseSchema = new mongoose.Schema({
             ref: "User",
             required: true
         }
-    ]
+    ],
+    status: {
+        type: String,
+        enum: ['draft', 'publish']
+    }
 })
 
 module.exports = mongoose.model("Course", courseSchema)
