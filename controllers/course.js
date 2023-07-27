@@ -165,4 +165,4 @@ const getCourseDetail = async (req, res) => {
         })
     }
 }
-module.exports = { createCourse, allCourses }
+module.exports = { createCourse, showAllCourses, getCourseDetail }

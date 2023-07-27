@@ -149,4 +149,4 @@ const deleteSubSection = async (req, res) => {
     }
 }
 
-module.exports = { createSubSection, updateSubSection }
+module.exports = { createSubSection, updateSubSection, deleteSubSection }
