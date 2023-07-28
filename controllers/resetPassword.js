@@ -111,4 +111,4 @@ const resetPassword = async (req, res) => {
     }
 }
 
-module.exports = { resetPasswordToken }
+module.exports = { resetPasswordToken, resetPassword }
