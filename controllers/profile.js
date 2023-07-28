@@ -1,6 +1,7 @@
 const Profile = require("../models/profile")
 const User = require("../models/user")
-
+const uploadImageToCloudinary = require("../utils/imageUploader")
+require("dotenv").config()
 const updateProfile = async (req, res) => {
     try {
         // fetch data
@@ -82,4 +83,37 @@ const deleteAccount = async (req, res) => {
 
     }
 }
-module.exports = { updateProfile, deleteAccount }
+
+const updateDisplayPicture = async (req, res) => {
+    try {
+        const displayPicture = req.files.displayPicture
+        console.log(`display picture  ; -> ${displayPicture}`);
+        const userId = req.user.id
+        console.log(`userId : - > ${userId}`);
+        const image = await uploadImageToCloudinary(
+            displayPicture,
+            process.env.FOLDER_NAME,
+            1000,
+            1000
+        )
+        console.log(`image are : - > ${image}`)
+        const updatedProfile = await User.findByIdAndUpdate(
+            { _id: userId },
+            { image: image.secure_url },
+            { new: true }
+        )
+        res.status(200).json({
+            success: true,
+            message: `Image Updated successfully`,
+            data: updatedProfile,
+        })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: "issue with updating the profile picture",
+            error: err.message,
+        })
+    }
+};
+
+module.exports = { updateProfile, deleteAccount, updateDisplayPicture }

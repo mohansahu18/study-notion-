@@ -182,7 +182,7 @@ const login = async (req, res) => {
                 accountType: user.accountType
             }
             const token = jwt.sign(payload, process.env.JWT_SECRET, {
-                expiresIn: '2h'
+                expiresIn: '24h'
             })
             user.token = token
             user.password = undefined
@@ -195,7 +195,7 @@ const login = async (req, res) => {
                 success: true,
                 message: "login successfully",
                 data: user,
-                token: token
+                token
             })
         } else {
             return res.status(401).json({
