@@ -40,7 +40,7 @@ const sendOtp = async (req, res) => {
                 lowerCaseAlphabets: false,
                 specialChars: false
             });
-            const result = await Otp.findOne({ otp: otp })
+            result = await Otp.findOne({ otp: otp })
         }
         const otpPayload = { email, otp }
 
@@ -75,10 +75,9 @@ const signup = async (req, res) => {
             password,
             accountType,
             confirmPassword,
-            contactNumber,
             otp } = req.body
         // validate
-        if (!firstName || !lastName || !email || !password || !confirmPassword || !contactNumber) {
+        if (!firstName || !lastName || !email || !password || !confirmPassword || !otp) {
             return res.status(403).json({
                 success: false,
                 message: "please fill all the fields"
@@ -100,14 +99,18 @@ const signup = async (req, res) => {
             })
         }
         // find most resent otp stored for the user 
-        const resentOtp = await User.find({ email }).sort({ createdAt: -1 }).limit(1)
+        const resentOtp = await Otp.find({ email }).sort({ createdAt: -1 }).limit(1)
+        console.log(`resentOtp : -> ${resentOtp}`);
+        console.log(`${email}`);
+
+
         // validate otp 
         if (resentOtp.length === 0) {
             return res.status(400).json({
                 success: false,
                 message: "otp not found"
             })
-        } else if (otp != resentOtp.otp) {
+        } else if (otp != resentOtp[0].otp) {
             return res.status(400).json({
                 success: false,
                 message: "invalid otp"
@@ -120,7 +123,7 @@ const signup = async (req, res) => {
             gender: null,
             dateOfBirth: null,
             about: null,
-            contactNumber: contactNumber,
+            contactNumber: null,
         })
         const user = await User.create({
             firstName,
@@ -172,7 +175,7 @@ const login = async (req, res) => {
         }
 
         // generate token after verifying the password
-        if (await bcrypt.compare(password, User.password)) {
+        if (await bcrypt.compare(password, user.password)) {
             const payload = {
                 id: user._id,
                 email: user.email,

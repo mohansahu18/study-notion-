@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
                 required: true,
                 enum: ['student', 'instructor', 'admin']
         },
+        image: {
+                type: String,
+                required: true,
+        },
         additionalDetails: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Profile",
@@ -49,7 +53,11 @@ const userSchema = new mongoose.Schema({
                         type: mongoose.Schema.Types.ObjectId,
                         ref: "CourseProgress"
                 }
-        ]
-})
+        ],
+},
+        {
+                timestamps: true
+        }
+)
 
 module.exports = mongoose.model("User", userSchema)
