@@ -36,10 +36,8 @@ const createCategory = async (req, res) => {
 
 const showAllCategory = async (req, res) => {
     try {
-        const allCategory = await Category.find({},
-            { name: true },
-            { description: true }
-        )
+        const allCategory = await Category.find()
+        console.log(`all category  : - > ${allCategory}`);
         return res.status(200).json({
             success: true,
             message: "category fetched successfully",

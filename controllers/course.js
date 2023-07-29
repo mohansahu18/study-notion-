@@ -1,5 +1,5 @@
 const Course = require("../models/course")
-const User = require('../models/course')
+const User = require('../models/user')
 const Category = require("../models/category")
 const uploadImageToCloudinary = require("../utils/imageUploader")
 require("dotenv").config()
@@ -11,7 +11,7 @@ const createCourse = async (req, res) => {
         const { courseName, courseDescription, whatYouWillLearn, price, category } = req.body
 
         // fetch thumbnail
-        const { thumbnail } = req.files.thumbnailImage
+        const thumbnail = req.files.thumbnailImage
 
         // validation
         if (!courseDescription || !courseName || !whatYouWillLearn || !price || !thumbnail) {
@@ -22,7 +22,7 @@ const createCourse = async (req, res) => {
         }
 
         // check for instructor
-        const userId = req.User.id
+        const userId = req.user.id
         const instructorDetail = await User.findById(userId)
         console.log(`instructorDetail : - > ${instructorDetail}`);
         if (!instructorDetail) {
@@ -42,7 +42,7 @@ const createCourse = async (req, res) => {
         }
 
         // upload image to cloudinary
-        const thumbnailImage = await uploadImageToCloudinary(thumbnailImage, process.env.FOLDER_NAME)
+        const thumbnailImage = await uploadImageToCloudinary(thumbnail, process.env.FOLDER_NAME)
 
         // create entry of new course
         const newCourse = await Course.create({

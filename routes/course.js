@@ -9,14 +9,14 @@ const {
     createCourse,
     showAllCourses,
     getCourseDetail,
-} = require("../controllers/Course")
+} = require("../controllers/course")
 
 // Categories Controllers Import
 const {
     showAllCategory,
     createCategory,
     categoryPageDetail,
-} = require("../controllers/Category")
+} = require("../controllers/category")
 
 // Sections Controllers Import
 const {
