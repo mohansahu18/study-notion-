@@ -23,14 +23,14 @@ const {
     createSection,
     updateSection,
     deleteSection,
-} = require("../controllers/Section")
+} = require("../controllers/section")
 
 // Sub-Sections Controllers Import
 const {
     createSubSection,
     updateSubSection,
     deleteSubSection,
-} = require("../controllers/Subsection")
+} = require("../controllers/subSection")
 
 // Rating Controllers Import
 const {
@@ -55,7 +55,7 @@ router.post("/createCourse", auth, isInstructor, createCourse)
 // Get all Registered Courses
 router.get("/getAllCourses", showAllCourses)
 // get all course detail
-router.get("/courseDetail", getCourseDetail)
+router.post("/getCourseDetails", getCourseDetail)
 //Add a Section to a Course
 router.post("/addSection", auth, isInstructor, createSection)
 // Update a Section

@@ -1,6 +1,6 @@
 const Section = require("../models/section")
 const Course = require('../models/course')
-
+const SubSection = require("../models/subSection")
 // create section handler
 const createSection = async (req, res) => {
     try {
@@ -31,7 +31,7 @@ const createSection = async (req, res) => {
         return res.status(201).json({
             success: true,
             message: "section created successfully",
-            data: newSection
+            data: updatedCourse
         })
     } catch (err) {
         console.log("error in creating a section ", err);
@@ -85,21 +85,38 @@ const updateSection = async (req, res) => {
 const deleteSection = async (req, res) => {
     try {
         // fetch data
-        const { sectionId } = req.params
+        const { sectionId, courseId } = req.body
 
         // validate
-        if (!sectionId) {
+        if (!sectionId || !courseId) {
             return res.status(400).json({
                 success: false,
-                message: "section id is require"
+                message: "section id and course id is require"
+            })
+        }
+        const section = await Section.findById(sectionId)
+        if (!section) {
+            return res.status(400).json({
+                success: false,
+                message: "section id is not valid"
             })
         }
 
         // delete section
         const deletedSection = await Section.findByIdAndDelete(
-            { sectionId }
+            sectionId
         )
 
+        // delete section id from course schema
+        await Course.findByIdAndUpdate(courseId, {
+            $pull: {
+                courseContent: sectionId,
+            }
+        })
+
+        // delete section id from sub section
+        await SubSection.deleteMany({ _id: { $in: section.subSection } });
+        console.log(`subsection del : - >${await SubSection.deleteMany({ _id: { $in: section.subSection } })}`);
         // return success response
         return res.status(201).json({
             success: true,
@@ -114,7 +131,6 @@ const deleteSection = async (req, res) => {
             message: "not able to delete section",
             error: err.message
         })
-
     }
 }
 

@@ -53,8 +53,10 @@ const updateProfile = async (req, res) => {
 const deleteAccount = async (req, res) => {
     try {
         // fetch data
-        const { userId } = req.user.id
-        const userDetail = User.findById(userId)
+        const userId = req.user.id
+        console.log(`user id : - >${userId}`);
+        const userDetail = await User.findById(userId)
+        console.log(`userdetail : - > ${userDetail}`);
         // validate
         if (!userDetail) {
             return res.status(404).json({
@@ -65,7 +67,9 @@ const deleteAccount = async (req, res) => {
 
         // delete profile of of the user
         const profileId = userDetail.additionalDetails
-        const deletedProfile = await Profile.findByIdAndDelete({ profileId })
+        console.log(`profile id : - > ${profileId}`);
+        console.log(`type of profile id  : ->${typeof (profileId)}`);
+        const deletedProfile = await Profile.findByIdAndDelete(profileId)
         // delete user
         const deletedUser = await User.findByIdAndDelete({
             _id: userId

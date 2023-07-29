@@ -115,23 +115,27 @@ const updateSubSection = async (req, res) => {
 const deleteSubSection = async (req, res) => {
     try {
         // fetch data
-        const { subSectionId } = req.params
-        let deletedSubSection;
-        if (!ObjectId.isValid(subSectionId)) {
-            return res.status(400).json({
+        const { subSectionId, sectionId } = req.body
+
+        // validate
+        if (!subSectionId || !sectionId) {
+            return res.status(404).json({
                 success: false,
-                message: "sub section id is required"
+                message: "all fields are required"
             })
         }
-        else {
-            deletedSubSection = await SubSection.findByIdAndDelete({ _id: subSectionId })
-            if (!deletedSubSection) {
-                return res.status(404).json({
-                    success: false,
-                    message: "sub section not found"
-                })
+        // remove subsection object id from section schema
+        const deletedSection = await Section.findByIdAndUpdate(
+            { _id: sectionId },
+            {
+                $pull: {
+                    subSection: subSectionId
+                }
             }
-        }
+        )
+
+        // delete subsection
+        const deletedSubSection = await SubSection.findByIdAndDelete(subSectionId)
         return res.status(200).json({
             success: true,
             message: "sub section deleted successfully",

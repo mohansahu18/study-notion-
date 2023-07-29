@@ -8,7 +8,7 @@ require("dotenv").config()
 const createCourse = async (req, res) => {
     try {
         // fetch data
-        const { courseName, courseDescription, whatYouWillLearn, price, category } = req.body
+        const { courseName, courseDescription, whatYouWillLearn, price, category, tags } = req.body
 
         // fetch thumbnail
         const thumbnail = req.files.thumbnailImage
@@ -52,7 +52,8 @@ const createCourse = async (req, res) => {
             category,
             whatYouWillLearn,
             instructor: instructorDetail._id,
-            thumbnail: thumbnailImage.secure_url
+            thumbnail: thumbnailImage.secure_url,
+            tags
         })
 
         //add new course in user schema of instructor
@@ -123,7 +124,7 @@ const showAllCourses = async (req, res) => {
 const getCourseDetail = async (req, res) => {
     try {
         // fetch course id
-        const { courseId } = req.params
+        const { courseId } = req.body
 
         // display details
         const courseDetail = await Course.find(
@@ -132,12 +133,13 @@ const getCourseDetail = async (req, res) => {
                 populate: {
                     path: "additionalDetails"
                 }
-            }).populate("category")
-            .populate("ratingAndReview")
+            })
+            .populate("category")
+            // .populate("RatingAndReview")
             .populate({
                 path: "courseContent",
                 populate: {
-                    path: "Section"
+                    path: "subSection"
                 }
             })
             .exec()
