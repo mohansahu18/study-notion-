@@ -6,8 +6,9 @@ const updateProfile = async (req, res) => {
     try {
         // fetch data
         const { gender, dateOfBirth = "", about = "", contactNumber } = req.body
-        const { userId } = req.user.id
-
+        // const { userId } = req.user.id
+        const userId = req.user.id;
+        console.log(`userId: - > ${userId}`);
         // validate
         if (!gender || !dateOfBirth || !about || !contactNumber) {
             return res.status(403).json({
@@ -17,9 +18,13 @@ const updateProfile = async (req, res) => {
         }
 
         // update profile
-        const profileId = userId.additionalDetails
+        // const profileId = userId.additionalDetails
+        const userDetails = await User.findById(userId);
+        console.log(`UserDETAIL : - > ${userDetails}`);
+        const profileId = userDetails.additionalDetails
+        console.log("profile id  : - .", profileId);
         const updatedProfile = await Profile.findByIdAndUpdate(
-            { _id: profileId },
+            profileId,
             {
                 gender,
                 dateOfBirth,
@@ -116,4 +121,26 @@ const updateDisplayPicture = async (req, res) => {
     }
 };
 
-module.exports = { updateProfile, deleteAccount, updateDisplayPicture }
+const getAllUserDetails = async (req, res) => {
+    try {
+        // const id = req.user.id;
+        const userId = req.user.id;
+        const userDetails = await User.findById(userId)
+            .populate("additionalDetails")
+            .exec();
+        console.log(userDetails);
+        res.status(200).json({
+            success: true,
+            message: "User Data fetched successfully",
+            data: userDetails,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "fail to fetch user detail",
+            error: error.message,
+        });
+    }
+};
+
+module.exports = { updateProfile, deleteAccount, updateDisplayPicture, getAllUserDetails }
