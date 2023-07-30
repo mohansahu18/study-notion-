@@ -106,7 +106,7 @@ const showAllCourses = async (req, res) => {
             studentEnroll: true
         }).populate("instructor").exec()
         return res.status(200).json({
-            success: false,
+            success: true,
             message: "successfully fetch the all  courses",
             data: allCourses
         })
