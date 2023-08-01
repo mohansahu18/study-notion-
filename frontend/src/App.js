@@ -1,12 +1,12 @@
 import './App.css';
-import Error from './component/Error';
-import AboutPage from './component/AboutPage'
-import ContactPage from './component/ContactPage'
-import HomePage from './component/HomePage';
-import Header from './component/Header';
-import Footer from './component/Footer'
-import Login from './component/Login';
-import Signup from './component/Signup';
+import Error from './component/pages/ErrorPage';
+import AboutPage from './component/pages/AboutPage'
+import ContactPage from './component/pages/ContactPage'
+import HomePage from './component/pages/HomePage';
+import Header from './component/common/Header';
+import Footer from './component/common/Footer'
+import Login from './component/pages/Login';
+import Signup from './component/pages/Signup';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 
