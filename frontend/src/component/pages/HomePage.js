@@ -7,6 +7,8 @@ import BannerVideo from '../../assets/Images/banner.mp4'
 import CodeBlocks from '../core/homepage/CodeBlocks'
 import TimelineSection from '../core/homepage/TimelineSection'
 import LearningLanguageSection from '../core/homepage/LearningLanguageSection'
+import InstructorSection from '../core/homepage/InstructorSection'
+import ExploreMore from '../core/homepage/ExploreMore'
 const HomePage = () => {
     return (
         <div>
@@ -114,6 +116,7 @@ const HomePage = () => {
                         backgroundGradient={<div className="codeblock2 absolute"></div>}
                     />
                 </div>
+                <ExploreMore />
             </div>
 
             {/* section 2 */}
@@ -164,7 +167,16 @@ const HomePage = () => {
             </div>
 
             {/* section 3 */}
+            <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+                {/* Become a instructor section */}
+                <InstructorSection />
 
+                {/* Reviews from Other Learner */}
+                {/* <h1 className="text-center text-4xl font-semibold mt-8">
+                    Reviews from other learners
+                </h1>
+                <ReviewSlider /> */}
+            </div>
         </div>
     )
 }
