@@ -41,10 +41,44 @@ function SignupForm() {
     const handleOnSubmit = (e) => {
         e.preventDefault()
 
-        if (password !== confirmPassword) {
-            toast.error("Passwords Do Not Match")
+
+
+        // Password validation rules
+        const minLength = 8; // Minimum password length
+        const hasUppercase = /[A-Z]/.test(password); // Check for uppercase letter
+        const hasLowercase = /[a-z]/.test(password); // Check for lowercase letter
+        const hasNumber = /[0-9]/.test(password); // Check for numeric digit
+
+        // Check if password meets all validation rules
+        if (
+            password !== confirmPassword ||
+            password.length < minLength ||
+            !hasUppercase ||
+            !hasLowercase ||
+            !hasNumber
+        ) {
+            // Display appropriate error message
+            if (password !== confirmPassword) {
+                toast.error("Passwords Do Not Match")
+            } else if (password.length < minLength) {
+                toast.error("Password should be at least 8 characters long")
+            } else if (!hasUppercase) {
+                toast.error("Password should contain at least one uppercase letter")
+            } else if (!hasLowercase) {
+                toast.error("Password should contain at least one lowercase letter")
+            } else if (!hasNumber) {
+                toast.error("Password should contain at least one numeric digit")
+            }
             return
         }
+
+
+
+
+        // if (password !== confirmPassword) {
+        //     toast.error("Passwords Do Not Match")
+        //     return
+        // }
         const signupData = {
             ...formData,
             accountType,
@@ -129,7 +163,7 @@ function SignupForm() {
                     </p>
                     <input
                         required
-                        type="text"
+                        type="email"
                         name="email"
                         value={email}
                         onChange={handleOnChange}

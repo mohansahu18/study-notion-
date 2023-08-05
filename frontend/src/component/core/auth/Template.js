@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux"
 
 import frameImg from "../../../assets/Images/frame.png"
-// import LoginForm from "./"
+import LoginForm from "./LoginForm"
 import SignupForm from "./SignupForm"
 
 function Template({ title, description1, description2, image, formType }) {
@@ -27,8 +27,7 @@ function Template({ title, description1, description2, image, formType }) {
                         {formType === "signup" ?
                             <SignupForm />
                             :
-                            // <LoginForm />
-                            <div> signup</div>
+                            <LoginForm />
                         }
                     </div>
                     <div className="relative mx-auto w-11/12 max-w-[450px] md:mx-0">
