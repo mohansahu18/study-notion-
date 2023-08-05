@@ -7,6 +7,7 @@ import Header from './component/common/Header';
 import Footer from './component/common/Footer'
 import Login from './component/pages/Login';
 import Signup from './component/pages/Signup';
+import VerifyEmail from './component/pages/VerifyEmail';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 const appRouter = createBrowserRouter([
@@ -41,6 +42,10 @@ const appRouter = createBrowserRouter([
         path: '/signup',
         element: <Signup />
       },
+      {
+        path: "/verify-email",
+        element: <VerifyEmail />
+      }
 
     ]
   },

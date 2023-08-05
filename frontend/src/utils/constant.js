@@ -1,5 +1,5 @@
 const ACCOUNT_TYPE = {
-    STUDENT: "Student",
+    STUDENT: "student",
     INSTRUCTOR: "Instructor",
     ADMIN: "Admin",
 }
