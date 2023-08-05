@@ -194,7 +194,7 @@ const login = async (req, res) => {
             return res.cookie("token", token, options).status(200).json({
                 success: true,
                 message: "login successfully",
-                data: user,
+                user,
                 token
             })
         } else {
