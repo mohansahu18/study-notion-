@@ -1,11 +1,9 @@
 import { toast } from "react-hot-toast"
-
 import { setLoading, setToken } from "../../slice/authSlice"
 // import { resetCart } from "../../slice/cartSlice"
 import { setUser } from "../../slice/profileSlice"
 import { apiConnector } from "../apiConnector"
 import { endpoints } from "../api"
-
 const {
     SENDOTP_API,
     SIGNUP_API,
@@ -19,8 +17,8 @@ const sendOtp = (email, navigate) => {
     return async (dispatch) => {
         const toastId = toast.loading("Loading...")
         console.log("tost id : - >", toastId);
-        dispatch(setLoading(true))
         try {
+            dispatch(setLoading(true))
             console.log("email : - >", email);
             const response = await apiConnector("POST", SENDOTP_API, {
                 email,
@@ -39,9 +37,11 @@ const sendOtp = (email, navigate) => {
             const errorResponse = error?.response?.data?.message
             toast.error("Could Not Send OTP")
             toast.error(errorResponse)
+        } finally {
+            dispatch(setLoading(false))
+            toast.dismiss(toastId)
         }
-        dispatch(setLoading(false))
-        toast.dismiss(toastId)
+
     }
 }
 
@@ -178,4 +178,18 @@ const resetPassword = (password, confirmPassword, token) => {
         dispatch(setLoading(false));
     }
 }
-export { sendOtp, signUp, login, getPasswordResetToken, resetPassword }
+
+const logout = (navigate) => {
+    return (dispatch) => {
+        dispatch(setToken(null))
+        dispatch(setUser(null))
+        //   dispatch(resetCart())
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        toast.success("Logged Out")
+        navigate("/")
+    }
+}
+
+
+export { sendOtp, signUp, login, logout, getPasswordResetToken, resetPassword }
