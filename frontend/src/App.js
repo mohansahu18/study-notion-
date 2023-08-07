@@ -8,6 +8,8 @@ import Footer from './component/common/Footer'
 import Login from './component/pages/Login';
 import Signup from './component/pages/Signup';
 import VerifyEmail from './component/pages/VerifyEmail';
+import ForgotPassword from './component/pages/ForgotPassword';
+import UpdatePassword from './component/pages/UpdatePassword';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 const appRouter = createBrowserRouter([
@@ -45,6 +47,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/verify-email",
         element: <VerifyEmail />
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />
+      },
+      {
+        path: "/update-password/:id",
+        element: <UpdatePassword />
       }
 
     ]

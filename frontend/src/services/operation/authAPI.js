@@ -10,8 +10,8 @@ const {
     SENDOTP_API,
     SIGNUP_API,
     LOGIN_API,
-    // RESETPASSTOKEN_API,
-    // RESETPASSWORD_API,
+    RESETPASSTOKEN_API,
+    RESETPASSWORD_API,
 } = endpoints
 
 console.log("send otp api url: -|>", SENDOTP_API);
@@ -128,4 +128,54 @@ const login = (email, password, navigate) => {
         toast.dismiss(toastId)
     }
 }
-export { sendOtp, signUp, login }
+
+const getPasswordResetToken = (email, setEmailSent) => {
+    return async (dispatch) => {
+        dispatch(setLoading(true));
+        try {
+            const response = await apiConnector("POST", RESETPASSTOKEN_API, { email, })
+
+            console.log("RESET PASSWORD TOKEN RESPONSE....", response);
+
+            if (!response.data.success) {
+                throw new Error(response.data.message);
+            }
+
+            toast.success("Reset Email Sent");
+            setEmailSent(true);
+        }
+        catch (error) {
+            console.log("RESET PASSWORD TOKEN Error", error);
+            toast.error("Failed to send email for resetting password");
+            const errorResponse = error?.response?.data?.message
+            toast.error(errorResponse)
+        }
+        dispatch(setLoading(false));
+    }
+}
+
+const resetPassword = (password, confirmPassword, token) => {
+    return async (dispatch) => {
+        dispatch(setLoading(true));
+        try {
+            const response = await apiConnector("POST", RESETPASSWORD_API, { password, confirmPassword, token });
+
+            console.log("RESET Password RESPONSE ... ", response);
+
+
+            if (!response.data.success) {
+                throw new Error(response.data.message);
+            }
+
+            toast.success("Password has been reset successfully");
+        }
+        catch (error) {
+            console.log("RESET PASSWORD TOKEN Error", error);
+            toast.error("Unable to reset password");
+            const errorResponse = error?.response?.data?.message
+            toast.error(errorResponse)
+        }
+        dispatch(setLoading(false));
+    }
+}
+export { sendOtp, signUp, login, getPasswordResetToken, resetPassword }
