@@ -29,7 +29,7 @@ const About = () => {
                         </p>
                     </header>
                     <div className="sm:h-[70px] lg:h-[150px]"></div>
-                    <div className="absolute border-8 border-yellow-200 bottom-0 left-[50%] grid w-full translate-x-[-50%] translate-y-[30%] grid-cols-3 gap-3 lg:gap-5">
+                    <div className="absolute bottom-0 left-[50%] grid w-full translate-x-[-50%] translate-y-[30%] grid-cols-3 gap-3 lg:gap-5">
                         <img src={BannerImage1} alt="" />
                         <img src={BannerImage2} alt="" />
                         <img src={BannerImage3} alt="" />

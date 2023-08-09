@@ -10,6 +10,10 @@ import Signup from './component/pages/Signup';
 import VerifyEmail from './component/pages/VerifyEmail';
 import ForgotPassword from './component/pages/ForgotPassword';
 import UpdatePassword from './component/pages/UpdatePassword';
+import MyProfile from './component/core/dashboard/MyProfile';
+import Settings from './component/core/dashboard/Settings';
+import Dashboard from './component/pages/Dashboard';
+import Sidebar from './component/core/dashboard/Sidebar';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 const appRouter = createBrowserRouter([
@@ -55,6 +59,28 @@ const appRouter = createBrowserRouter([
       {
         path: "/update-password/:id",
         element: <UpdatePassword />
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+        children: [
+          {
+            path: "my-profile",
+            element: <MyProfile />,
+          },
+          // {
+          //   path: "/enrolled-courses",
+          //   element: ,
+          // },
+          // {
+          //   path: "/cart",
+          //   element: '',
+          // },
+          {
+            path: "settings",
+            element: <Settings />
+          }
+        ]
       }
 
     ]
