@@ -13,7 +13,7 @@ import UpdatePassword from './component/pages/UpdatePassword';
 import MyProfile from './component/core/dashboard/MyProfile';
 import Settings from './component/core/dashboard/Settings';
 import Dashboard from './component/pages/Dashboard';
-import Sidebar from './component/core/dashboard/Sidebar';
+import PrivateRoute from './component/core/auth/PrivateRoute';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 const appRouter = createBrowserRouter([
@@ -62,7 +62,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: <PrivateRoute children={<Dashboard />} />,
         children: [
           {
             path: "my-profile",
