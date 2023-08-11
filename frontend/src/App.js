@@ -11,7 +11,7 @@ import VerifyEmail from './component/pages/VerifyEmail';
 import ForgotPassword from './component/pages/ForgotPassword';
 import UpdatePassword from './component/pages/UpdatePassword';
 import MyProfile from './component/core/dashboard/MyProfile';
-import Settings from './component/core/dashboard/Settings';
+import Settings from './component/core/dashboard/settings';
 import Dashboard from './component/pages/Dashboard';
 import PrivateRoute from './component/core/auth/PrivateRoute';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';

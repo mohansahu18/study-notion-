@@ -5,7 +5,7 @@ require("dotenv").config()
 const updateProfile = async (req, res) => {
     try {
         // fetch data
-        const { gender, dateOfBirth = "", about = "", contactNumber } = req.body
+        const { gender, dateOfBirth = "", about = "", contactNumber, } = req.body
         // const { userId } = req.user.id
         const userId = req.user.id;
         console.log(`userId: - > ${userId}`);
@@ -21,7 +21,19 @@ const updateProfile = async (req, res) => {
         // const profileId = userId.additionalDetails
         const userDetails = await User.findById(userId);
         console.log(`UserDETAIL : - > ${userDetails}`);
-        const profileId = userDetails.additionalDetails
+
+
+
+        const profileId = userDetails.additionalDetails || null; // Set to null if additionalDetails is missing
+
+        if (!profileId) {
+            return res.status(404).json({
+                success: false,
+                message: "User profile not found or additionalDetails missing"
+            });
+        }
+
+
         console.log("profile id  : - .", profileId);
         const updatedProfile = await Profile.findByIdAndUpdate(
             profileId,
@@ -105,7 +117,7 @@ const updateDisplayPicture = async (req, res) => {
             1000,
             1000
         )
-        console.log(`image are : - > ${image}`)
+        console.log("image URL are : - >", image?.secure_url)
         const updatedProfile = await User.findByIdAndUpdate(
             { _id: userId },
             { image: image.secure_url },
