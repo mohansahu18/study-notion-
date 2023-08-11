@@ -5,6 +5,8 @@ import sidebarLinks from '../../../data/dashboard-links'
 import SidebarLink from './SidebarLink'
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { VscSignOut } from "react-icons/vsc"
+import ConfirmationModal from '../../common/ConfirmationModal'
 
 const Sidebar = () => {
     const { user, loading: profileLoading } = useSelector(
@@ -55,13 +57,13 @@ const Sidebar = () => {
                         className="px-8 py-2 text-sm font-medium text-richblack-300"
                     >
                         <div className="flex items-center gap-x-2">
-                            {/* <VscSignOut className="text-lg" /> */}
+                            <VscSignOut className="text-lg" />
                             <span>Logout</span>
                         </div>
                     </button>
                 </div>
             </div>
-            {/* {confirmationModal && <ConfirmationModal modalData={confirmationModal} />} */}
+            {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
         </>
     )
 }
