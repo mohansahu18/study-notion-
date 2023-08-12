@@ -15,6 +15,7 @@ import Settings from './component/core/dashboard/settings';
 import Dashboard from './component/pages/Dashboard';
 import PrivateRoute from './component/core/auth/PrivateRoute';
 import EnrolledCourses from './component/core/dashboard/EnrollCourses';
+import Cart from './component/core/dashboard/cart';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 const appRouter = createBrowserRouter([
@@ -73,10 +74,10 @@ const appRouter = createBrowserRouter([
             path: "enrolled-courses",
             element: <EnrolledCourses />,
           },
-          // {
-          //   path: "/cart",
-          //   element: '',
-          // },
+          {
+            path: "cart",
+            element: <Cart />,
+          },
           {
             path: "settings",
             element: <Settings />
