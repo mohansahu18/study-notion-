@@ -14,6 +14,7 @@ import MyProfile from './component/core/dashboard/MyProfile';
 import Settings from './component/core/dashboard/settings';
 import Dashboard from './component/pages/Dashboard';
 import PrivateRoute from './component/core/auth/PrivateRoute';
+import EnrolledCourses from './component/core/dashboard/EnrollCourses';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 const appRouter = createBrowserRouter([
@@ -68,10 +69,10 @@ const appRouter = createBrowserRouter([
             path: "my-profile",
             element: <MyProfile />,
           },
-          // {
-          //   path: "/enrolled-courses",
-          //   element: ,
-          // },
+          {
+            path: "enrolled-courses",
+            element: <EnrolledCourses />,
+          },
           // {
           //   path: "/cart",
           //   element: '',
