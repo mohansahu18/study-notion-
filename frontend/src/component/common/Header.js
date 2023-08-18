@@ -16,31 +16,21 @@ const Header = () => {
     const { user } = useSelector((store) => store.profile)
     const { totalItems } = useSelector((store) => store.cart)
 
+    const [subLinks, setSubLinks] = useState([])
 
-    const subLinks = [
-        {
-            title: 'phtyon',
-            path: '/phtyon'
-        },
-        {
-            title: 'web-dev',
-            path: '/webDev'
+    const fetchSubLinks = async () => {
+        try {
+            const result = await apiConnector("GET", courseEndpoints.COURSE_CATEGORIES_API)
+            // console.log("result:", JSON.stringify(result.data.data, null, 2));
+            setSubLinks(result.data.data)
+            // console.log("subLinks", subLinks);
+        } catch (err) {
+            console.log(`error while fetching subLinks : - > ${err}`);
         }
-    ]
-    // const [subLinks, setSubLinks] = useState([])
-
-    // const fetchSubLinks = async () => {
-    //     try {
-    //         const result = await apiConnector("GET", courseEndpoints.COURSE_CATEGORIES_API)
-    //         console.log(`result ${result}`);
-    //         setSubLinks(result.data.data)
-    //     } catch (err) {
-    //         console.log(`error while fetching subLinks : - > ${err}`);
-    //     }
-    // }
-    // useEffect(() => {
-    //     fetchSubLinks()
-    // }, [])
+    }
+    useEffect(() => {
+        fetchSubLinks()
+    }, [])
 
     const location = useLocation()
     const matchRoute = (route) => {
@@ -68,17 +58,29 @@ const Header = () => {
                                         <BsChevronDown />
                                         <div className="invisible absolute left-[45%] top-[5%] z-[1000] flex w-[200px] translate-x-[-50%] translate-y-[3em] flex-col rounded-lg bg-richblack-5 p-4 text-richblack-900 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-[1.65em] group-hover:opacity-100 lg:w-[300px]">
                                             <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5">
-
                                             </div>
                                             {
-                                                subLinks.map((element, index) => (
-                                                    <Link key={index} to={element.path}>
-                                                        <p>
-                                                            {element.title}
-                                                        </p>
-                                                    </Link>
-                                                ))
+                                                subLinks.length ? (
+                                                    <>
+                                                        {subLinks
+                                                            ?.map((subLink, i) => (
+                                                                <Link
+                                                                    to={`/catalog/${subLink.name
+                                                                        .split(" ")
+                                                                        .join("-")
+                                                                        .toLowerCase()}`}
+                                                                    className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
+                                                                    key={i}
+                                                                >
+                                                                    <p>{subLink.name}</p>
+                                                                </Link>
+                                                            ))}
+                                                    </>
+                                                ) : (
+                                                    <p className="text-center">No Courses Found</p>
+                                                )
                                             }
+
                                         </div>
                                     </div>
                                 ) : (
