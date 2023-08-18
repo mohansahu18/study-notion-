@@ -14,7 +14,9 @@ const createCourse = async (req, res) => {
         const thumbnail = req.files.thumbnailImage
 
         // validation
-        if (!courseDescription || !courseName || !whatYouWillLearn || !price || !thumbnail) {
+        if (!courseDescription || !courseName || !whatYouWillLearn || !price
+            || !thumbnail
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "all fields are require"
@@ -51,8 +53,8 @@ const createCourse = async (req, res) => {
             price,
             category,
             whatYouWillLearn,
-            instructor: instructorDetail._id,
-            thumbnail: thumbnailImage.secure_url,
+            instructor: instructorDetail?._id,
+            thumbnail: thumbnailImage?.secure_url,
             tags
         })
 

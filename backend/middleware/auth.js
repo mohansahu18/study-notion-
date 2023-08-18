@@ -20,7 +20,7 @@ const auth = async (req, res, next) => {
         // verify token
         try {
             const decode = jwt.verify(token, process.env.JWT_SECRET)
-            console.log(`decode : - > ${decode}`);
+            console.log(`decode : - > ${JSON.stringify(decode, null, 2)}`);
             req.user = decode
         } catch (err) {
             return res.status(400).json({
