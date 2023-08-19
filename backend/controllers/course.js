@@ -8,14 +8,25 @@ require("dotenv").config()
 const createCourse = async (req, res) => {
     try {
         // fetch data
-        const { courseName, courseDescription, whatYouWillLearn, price, category, tags } = req.body
+        const { courseName, courseDescription, whatYouWillLearn, price, category, tags: _tags, instructions: _instructions } = req.body
 
         // fetch thumbnail
         const thumbnail = req.files.thumbnailImage
 
+        // Convert the tag and instructions from stringified Array to Array
+        console.log("_tags", _tags);
+
+        // const tags = JSON.parse(_tags)
+        const tags = _tags.split(',').map(tag => tag.trim()); // Convert comma-separated string to array
+        // const instructions = JSON.parse(_instructions)
+        const instructions = _instructions.split(',').map(e => e.trim()); // Convert comma-separated string to array
+
+        console.log("tags", tags)
+        console.log("instructions", instructions)
+
         // validation
         if (!courseDescription || !courseName || !whatYouWillLearn || !price
-            || !thumbnail
+            || !thumbnail || !tags.length || !instructions.length
         ) {
             return res.status(400).json({
                 success: false,
@@ -55,7 +66,8 @@ const createCourse = async (req, res) => {
             whatYouWillLearn,
             instructor: instructorDetail?._id,
             thumbnail: thumbnailImage?.secure_url,
-            tags
+            tags,
+            instructions
         })
 
         //add new course in user schema of instructor
@@ -92,6 +104,76 @@ const createCourse = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "not able to create course"
+        })
+    }
+}
+
+// Edit Course Details
+const editCourse = async (req, res) => {
+    try {
+        const { courseId } = req.body
+        const updates = req.body
+        const course = await Course.findById(courseId)
+
+        if (!course) {
+            return res.status(404).json({ error: "Course not found" })
+        }
+
+        // If Thumbnail Image is found, update it
+        if (req.files) {
+            console.log("thumbnail update")
+            const thumbnail = req?.files?.thumbnailImage
+            const thumbnailImage = await uploadImageToCloudinary(
+                thumbnail,
+                process.env.FOLDER_NAME
+            )
+            course.thumbnail = thumbnailImage?.secure_url
+        }
+
+        // Update only the fields that are present in the request body
+        for (const key in updates) {
+            if (updates.hasOwnProperty(key)) {
+                if (key === "tags" || key === "instructions") {
+                    course[key] = JSON.parse(updates[key])
+                } else {
+                    course[key] = updates[key]
+                }
+            }
+        }
+
+        await course.save()
+
+        const updatedCourse = await Course.findOne({
+            _id: courseId,
+        })
+            .populate({
+                path: "instructor",
+                populate: {
+                    path: "additionalDetails",
+                },
+            })
+            .populate("category")
+            // .populate("ratingAndReviews")
+            .populate({
+                path: "courseContent",
+                populate: {
+                    path: "subSection",
+                    select: "-videoUrl",
+                },
+            })
+            .exec()
+
+        res.json({
+            success: true,
+            message: "Course updated successfully",
+            data: updatedCourse,
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message,
         })
     }
 }
@@ -169,4 +251,4 @@ const getCourseDetail = async (req, res) => {
         })
     }
 }
-module.exports = { createCourse, showAllCourses, getCourseDetail }
+module.exports = { createCourse, showAllCourses, getCourseDetail, editCourse }

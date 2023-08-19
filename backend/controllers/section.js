@@ -25,7 +25,13 @@ const createSection = async (req, res) => {
             { _id: courseId },
             { $push: { courseContent: newSection._id } },
             { new: true }
-        )
+        ).populate({
+            path: "courseContent",
+            populate: {
+                path: "subSection",
+            },
+        })
+
 
         // return success response
         return res.status(201).json({
@@ -47,7 +53,7 @@ const createSection = async (req, res) => {
 const updateSection = async (req, res) => {
     try {
         // fetch data
-        const { sectionId, sectionName } = req.body
+        const { sectionId, sectionName, courseId } = req.body
 
         // validate
         if (!sectionId || !sectionName) {
@@ -65,11 +71,18 @@ const updateSection = async (req, res) => {
             { new: true }
         )
 
+        const course = await Course.findById(courseId)
+            .populate({
+                path: "courseContent",
+                populate: {
+                    path: "subSection",
+                },
+            })
         // return success response
         return res.status(201).json({
             success: true,
             message: "section updated successfully",
-            data: updatedSection
+            data: course
         })
 
     } catch (err) {
@@ -117,11 +130,20 @@ const deleteSection = async (req, res) => {
         // delete section id from sub section
         await SubSection.deleteMany({ _id: { $in: section.subSection } });
         console.log(`subsection del : - >${await SubSection.deleteMany({ _id: { $in: section.subSection } })}`);
+
+        //find the updated course and return 
+        const course = await Course.findById(courseId).populate({
+            path: "courseContent",
+            populate: {
+                path: "subSection"
+            }
+        })
+
         // return success response
         return res.status(201).json({
             success: true,
             message: "section deleted successfully",
-            data: deletedSection
+            data: course
         })
 
     } catch (err) {

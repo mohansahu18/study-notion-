@@ -48,6 +48,9 @@ const courseSchema = new mongoose.Schema({
         type: [String],
         require: true
     },
+    instructions: {
+        type: [String],
+    },
     studentEnroll: [
         {
             type: mongoose.Schema.Types.ObjectId,
