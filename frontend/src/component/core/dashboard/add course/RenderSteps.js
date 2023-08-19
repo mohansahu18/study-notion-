@@ -1,7 +1,7 @@
 import { FaCheck } from "react-icons/fa"
 import { useSelector } from "react-redux"
 
-// import CourseBuilderForm from "./Course Information/CourseInformationForm"
+import CourseBuilderForm from "./course Builder/CourseBuilderForm"
 import CourseInformationForm from "./Course Information/CourseInformationForm"
 // import PublishCourse from "./PublishCourse"
 
@@ -25,7 +25,7 @@ export default function RenderSteps() {
     ]
 
     return (
-        <>
+        <div>
             <div className="relative mb-2 flex w-full justify-center">
                 {steps.map((item) => (
                     <>
@@ -61,27 +61,48 @@ export default function RenderSteps() {
 
             <div className="relative mb-16 flex w-full select-none justify-between">
                 {steps.map((item) => (
-                    <>
-                        <div
-                            className="flex min-w-[130px] flex-col items-center gap-y-2"
-                            key={item.id}
+
+                    <div
+                        className="flex min-w-[130px] flex-col items-center gap-y-2"
+                        key={item.id}
+                    >
+
+                        <p
+                            className={`text-sm ${step >= item.id ? "text-richblack-5" : "text-richblack-500"
+                                }`}
                         >
+                            {item.title}
+                        </p>
+                    </div>
 
-                            <p
-                                className={`text-sm ${step >= item.id ? "text-richblack-5" : "text-richblack-500"
-                                    }`}
-                            >
-                                {item.title}
-                            </p>
-                        </div>
 
-                    </>
                 ))}
             </div>
             {/* Render specific component based on current step */}
             {step === 1 && <CourseInformationForm />}
-            {/* {step === 2 && <CourseBuilderForm />}
-            {step === 3 && <PublishCourse />} */}
-        </>
+            {step === 2 && <CourseBuilderForm />}
+            {/* {step === 3 && <PublishCourse />}  */}
+        </div>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

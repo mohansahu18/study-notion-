@@ -23,7 +23,7 @@ export default function ChipInput({
     useEffect(() => {
         if (editCourse) {
             // console.log(course)
-            setChips(course?.tag)
+            setChips(course?.tags)
         }
         register(name, { required: true, validate: (value) => value.length > 0 })
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,7 +69,7 @@ export default function ChipInput({
             {/* Render the chips and input */}
             <div className="flex w-full flex-wrap gap-y-2">
                 {/* Map over the chips array and render each chip */}
-                {chips.map((chip, index) => (
+                {chips?.map((chip, index) => (
                     <div
                         key={index}
                         className="m-1 flex items-center rounded-full bg-yellow-400 px-2 py-1 text-sm text-richblack-5"

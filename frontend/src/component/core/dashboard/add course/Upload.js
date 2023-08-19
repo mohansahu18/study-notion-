@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { FiUploadCloud } from "react-icons/fi"
 import { useSelector } from "react-redux"
-
-// import "video-react/dist/video-react.css"
-// import { Player } from "video-react"
+import { MAX_FILE_SIZE } from "../../../../utils/constant"
+import toast from "react-hot-toast"
+import "video-react/dist/video-react.css"
+import { Player } from "video-react"
 
 export default function Upload({
     name,
@@ -25,6 +26,18 @@ export default function Upload({
 
     const onDrop = (acceptedFiles) => {
         const file = acceptedFiles[0]
+
+        if (file) {
+            if (!video && file.size > MAX_FILE_SIZE.MAX_IMAGE_SIZE) {
+                toast.error("Image size exceeds the limit of 500Kb"); // Display error toast
+                return;
+            } else if (video && file.size > MAX_FILE_SIZE.MAX_VIDEO_SIZE) {
+                toast.error("Video size exceeds the limit of 1mb"); // Display error toast
+                return;
+            }
+        }
+
+
         if (file) {
             previewFile(file)
             setSelectedFile(file)
@@ -39,7 +52,7 @@ export default function Upload({
     })
 
     const previewFile = (file) => {
-        // console.log(file)
+        console.log("file are :- >", file)
         const reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onloadend = () => {
@@ -75,8 +88,8 @@ export default function Upload({
                                 className="h-full w-full rounded-md object-cover"
                             />
                         ) : (
-                            // <Player aspectRatio="16:9" playsInline src={previewSource} />
-                            <div></div>
+                            <Player aspectRatio="16:9" playsInline src={previewSource} />
+
                         )}
                         {!viewData && (
                             <button
