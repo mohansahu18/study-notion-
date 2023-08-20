@@ -17,6 +17,7 @@ import PrivateRoute from './component/core/auth/PrivateRoute';
 import EnrolledCourses from './component/core/dashboard/EnrollCourses';
 import AddCourse from './component/core/dashboard/add course';
 import Cart from './component/core/dashboard/cart';
+import MyCourses from './component/core/dashboard/MyCourses';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 const appRouter = createBrowserRouter([
@@ -86,6 +87,10 @@ const appRouter = createBrowserRouter([
           {
             path: "add-course",
             element: <AddCourse />
+          },
+          {
+            path: "my-courses",
+            element: <MyCourses />
           }
         ]
       }
