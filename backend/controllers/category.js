@@ -61,8 +61,12 @@ const categoryPageDetail = async (req, res) => {
         const { categoryId } = req.body
 
         // get course for specific category id
-        const selectedCategory = await Category.findById(categoryId).populate("course").exec()
-
+        const selectedCategory = await Category.findById(categoryId)
+            .populate({
+                path: "course",
+                match: { status: "Published" },
+                populate: "ratingAndReview",
+            })
         // validation
         if (!selectedCategory) {
             return res.status(404).json({
