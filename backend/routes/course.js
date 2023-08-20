@@ -11,7 +11,8 @@ const {
     getCourseDetail,
     editCourse,
     getInstructorCourses,
-    deleteCourse
+    deleteCourse,
+    getFullCourseDetails
 } = require("../controllers/course")
 
 // Categories Controllers Import
@@ -65,6 +66,9 @@ router.put("/editCourse", editCourse)
 router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 // Delete a Course
 router.delete("/deleteCourse", auth, isInstructor, deleteCourse)
+// 
+router.post("/getFullCourseDetails", auth, isInstructor, getFullCourseDetails)
+
 //Add a Section to a Course
 router.post("/addSection", auth, isInstructor, createSection)
 // Update a Section
