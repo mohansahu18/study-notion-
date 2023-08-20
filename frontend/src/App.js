@@ -20,6 +20,7 @@ import Cart from './component/core/dashboard/cart';
 import MyCourses from './component/core/dashboard/MyCourses';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
+import EditCourse from './component/core/dashboard/edit course';
 const appRouter = createBrowserRouter([
   {
     path: '/',
@@ -91,6 +92,10 @@ const appRouter = createBrowserRouter([
           {
             path: "my-courses",
             element: <MyCourses />
+          },
+          {
+            path: 'edit-course/:courseId',
+            element: <EditCourse />
           }
         ]
       }
