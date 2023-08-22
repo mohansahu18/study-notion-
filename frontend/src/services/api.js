@@ -50,3 +50,13 @@ export const settingsEndpoints = {
     CHANGE_PASSWORD_API: BASE_URL + "/auth/changePassword",
     DELETE_PROFILE_API: BASE_URL + "/profile/deleteAccount",
 }
+
+// CATALOG PAGE DATA
+export const catalogData = {
+    CATALOGPAGEDATA_API: BASE_URL + "/course/getCategoryPageDetails",
+}
+
+// CATAGORIES API
+export const categories = {
+    CATEGORIES_API: BASE_URL + "/course/showAllCategories",
+}
