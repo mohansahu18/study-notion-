@@ -254,7 +254,10 @@ const getCourseDetail = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "successfully fetch the course detail",
-            data: courseDetail
+            data: {
+                courseDetail,
+                // totalDuration,
+            },
         })
     } catch (err) {
         console.log(`error while fetching the course detail : - >${err}`);
