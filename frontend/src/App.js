@@ -18,6 +18,7 @@ import EnrolledCourses from './component/core/dashboard/EnrollCourses';
 import AddCourse from './component/core/dashboard/add course';
 import Cart from './component/core/dashboard/cart';
 import MyCourses from './component/core/dashboard/MyCourses';
+import CourseDetails from './component/pages/CourseDetails'
 import Catalog from './component/pages/Catalog';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
@@ -61,6 +62,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/forgot-password",
         element: <ForgotPassword />
+      },
+      {
+        path: "/courses/:courseId",
+        element: <CourseDetails />
       },
       {
         path: "/update-password/:id",

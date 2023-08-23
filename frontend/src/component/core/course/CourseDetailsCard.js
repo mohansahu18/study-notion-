@@ -68,16 +68,16 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
                         <button
                             className="yellowButton"
                             onClick={
-                                user && course?.studentsEnrolled.includes(user?._id)
+                                user && course?.studentsEnrolled?.includes(user?._id)
                                     ? () => navigate("/dashboard/enrolled-courses")
                                     : handleBuyCourse
                             }
                         >
-                            {user && course?.studentsEnrolled.includes(user?._id)
+                            {user && course?.studentsEnrolled?.includes(user?._id)
                                 ? "Go To Course"
                                 : "Buy Now"}
                         </button>
-                        {(!user || !course?.studentsEnrolled.includes(user?._id)) && (
+                        {(!user || !course?.studentsEnrolled?.includes(user?._id)) && (
                             <button onClick={handleAddToCart} className="blackButton">
                                 Add to Cart
                             </button>
@@ -94,6 +94,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
                             This Course Includes :
                         </p>
                         <div className="flex flex-col gap-3 text-sm text-caribbeangreen-100">
+                            {console.log(course)};
                             {course?.instructions?.map((item, i) => {
                                 return (
                                     <p className={`flex gap-2`} key={i}>

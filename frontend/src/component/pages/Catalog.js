@@ -106,7 +106,7 @@ const Catalog = () => {
                         New
                     </p>
                 </div>
-                <div className='border-2 border-yellow-25'>
+                <div>
                     <CourseSlider
                         Courses={catalogPageData?.data?.selectedCategory?.course}
                     />

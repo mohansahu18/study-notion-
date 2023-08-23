@@ -17,9 +17,9 @@ const Course_Card = ({ course, Height }) => {
 
     return (
         <>
-            {console.log("course card : - >", course)};
+            {/* {console.log("course card : - >", course)}; */}
             <Link to={`/courses/${course._id}`}>
-                <div className="border-2 w-11/12 h-3/6 border-pink-300">
+                <div className=" w-11/12 h-3/6">
                     <div className="rounded-lg">
                         <img
                             src={course?.thumbnail}
