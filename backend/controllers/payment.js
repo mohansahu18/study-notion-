@@ -5,6 +5,10 @@ const crypto = require("crypto")
 const CourseProgress = require("../models/courseProgress")
 const { default: mongoose } = require("mongoose")
 const mailSender = require("../utils/mailSender")
+const {
+    courseEnrollmentEmail,
+} = require("../mail template/courseEnrollmentEmail")
+const { paymentSuccessEmail } = require("../mail template/paymentSuccessEmail")
 
 // Capture the payment and initiate the Razorpay order
 exports.capturePayment = async (req, res) => {
@@ -205,10 +209,10 @@ const enrollStudents = async (courses, userId, res) => {
             const emailResponse = await mailSender(
                 enrolledStudent.email,
                 `Successfully Enrolled into ${enrolledCourse.courseName}`,
-                // courseEnrollmentEmail(
-                //     enrolledCourse.courseName,
-                //     `${enrolledStudent.firstName} ${enrolledStudent.lastName}`
-                // )
+                courseEnrollmentEmail(
+                    enrolledCourse.courseName,
+                    `${enrolledStudent.firstName} ${enrolledStudent.lastName}`
+                )
             )
 
             console.log("Email sent successfully: ", emailResponse.response)

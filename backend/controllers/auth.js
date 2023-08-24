@@ -5,6 +5,8 @@ const otpGenerator = require('otp-generator')
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
 const mailSender = require("../utils/mailSender")
+const { passwordUpdated } = require("../mail template/passwordUpdated")
+
 require("dotenv").config()
 
 // otp generator
@@ -296,7 +298,11 @@ const changePassword = async (req, res) => {
             const emailResponse = await mailSender(
                 updatedUserDetails.email,
                 "Password for your account has been updated",
-                `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+                passwordUpdated(
+                    updatedUserDetails.email,
+                    `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+                )
+
 
             )
             console.log("Email sent successfully:", emailResponse.response)
