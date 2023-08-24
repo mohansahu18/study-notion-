@@ -7,7 +7,8 @@ const auth = async (req, res, next) => {
         // extract token
         const token = req.cookies.token ||
             req.body.token ||
-            req.header("Authorization").replace("Bearer ", "");
+            (req.header("Authorization") ? req.header("Authorization").replace("Bearer ", "") : null);
+        // req.header("Authorization").replace("Bearer ", "");
         console.log(`token /cookies: - > ${token}`);
         // if token missing , then return response
         if (!token) {
@@ -28,12 +29,15 @@ const auth = async (req, res, next) => {
                 message: "token is invalid"
             })
         }
+
+
         next()
     } catch (err) {
         console.log(err);
         return res.status(400).json({
             success: false,
-            message: "something went wrong while validating token"
+            message: "something went wrong while validating token",
+            error: err.message
         })
     }
 }

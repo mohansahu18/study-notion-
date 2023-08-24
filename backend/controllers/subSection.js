@@ -30,10 +30,11 @@ const createSubSection = async (req, res) => {
 
         // create subSection
         const newSubSection = await SubSection.create({
-            title,
-            description,
-            // timeDuration,
-            videoUrl: uploadDetails.secure_url
+            title: title,
+            description: description,
+            videoUrl: uploadDetails.secure_url,
+            timeDuration: `${uploadDetails.duration}`,
+
         })
 
         // update section with sub section objectId
