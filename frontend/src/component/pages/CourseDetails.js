@@ -27,11 +27,11 @@ function CourseDetails() {
     const { courseId } = useParams()
     // console.log(`course id: ${courseId}`)
 
-    // Declear a state to save the course details
+    // Declare a state to save the course details
     const [response, setResponse] = useState(null)
     const [confirmationModal, setConfirmationModal] = useState(null)
     useEffect(() => {
-        // Calling fetchCourseDetails fucntion to fetch the details
+        // Calling fetchCourseDetails function to fetch the details
         (async () => {
             try {
                 const res = await fetchCourseDetails(courseId)
@@ -61,7 +61,7 @@ function CourseDetails() {
         setIsActive(
             !isActive.includes(id)
                 ? isActive.concat([id])
-                : isActive.filter((e) => e != id)
+                : isActive.filter((e) => e !== id)
         )
     }
 
@@ -212,7 +212,7 @@ function CourseDetails() {
                                     <span>
                                         {totalNoOfLectures} {`lecture(s)`}
                                     </span>
-                                    {/* <span>{response.data?.totalDuration} total length</span> */}
+                                    <span>{response.data.totalDuration} total length</span>
                                 </div>
                                 <div>
                                     <button

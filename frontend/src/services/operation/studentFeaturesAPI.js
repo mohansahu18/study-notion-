@@ -95,8 +95,8 @@ export async function BuyCourse(
     } catch (error) {
         console.log("PAYMENT API ERROR............", error)
         toast.error("Could Not make Payment.")
-        const errorResponse = error?.response?.data?.message
-        toast.error(errorResponse)
+        // const errorResponse = error
+        // toast.error(error)
         toast.dismiss(toastId)
 
     }
