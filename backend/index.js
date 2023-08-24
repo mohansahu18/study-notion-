@@ -7,6 +7,7 @@ const courseRoutes = require('./routes/course')
 const paymentRoutes = require('./routes/payment')
 const profileRoutes = require('./routes/profile')
 const userRoutes = require('./routes/user')
+const contactRoutes = require('./routes/contact')
 
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
@@ -42,6 +43,7 @@ app.use("/api/v1/auth", userRoutes)
 app.use("/api/v1/profile", profileRoutes)
 app.use("/api/v1/course", courseRoutes)
 app.use("/api/v1/payment", paymentRoutes)
+app.use("/api/v1/reach", contactRoutes)
 
 
 app.listen(PORT, () => {
