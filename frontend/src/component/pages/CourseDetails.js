@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom"
 
 import ConfirmationModal from "../common/ConfirmationModal"
 import RatingStars from "../common/RatingStars"
-// import CourseAccordionBar from "../components/core/Course/CourseAccordionBar"
+import CourseAccordionBar from "../core/course/CourseAccordionBar"
 import CourseDetailsCard from "../core/course/CourseDetailsCard"
 import { formatDate } from "../../services/formatDate"
 import { fetchCourseDetails } from "../../services/operation/courseDetailsAPI"
@@ -69,7 +69,7 @@ function CourseDetails() {
     const [totalNoOfLectures, setTotalNoOfLectures] = useState(0)
     useEffect(() => {
         let lectures = 0
-        response?.data?.courseDetail?.courseContent?.forEach((sec) => {
+        response?.data?.courseDetail[0]?.courseContent?.forEach((sec) => {
             lectures += sec.subSection.length || 0
         })
         setTotalNoOfLectures(lectures)
@@ -212,7 +212,7 @@ function CourseDetails() {
                                     <span>
                                         {totalNoOfLectures} {`lecture(s)`}
                                     </span>
-                                    <span>{response.data.totalDuration} total length</span>
+                                    {/* <span>{response.data.totalDuration} total length</span> */}
                                 </div>
                                 <div>
                                     <button
@@ -226,7 +226,7 @@ function CourseDetails() {
                         </div>
 
                         {/* Course Details Accordion */}
-                        {/* <div className="py-4">
+                        <div className="py-4">
                             {courseContent?.map((course, index) => (
                                 <CourseAccordionBar
                                     course={course}
@@ -235,7 +235,7 @@ function CourseDetails() {
                                     handleActive={handleActive}
                                 />
                             ))}
-                        </div> */}
+                        </div>
 
                         {/* Author Details */}
                         <div className="mb-12 py-4">
