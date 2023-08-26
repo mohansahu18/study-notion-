@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import Error from './component/pages/ErrorPage';
 import AboutPage from './component/pages/AboutPage'
 import ContactPage from './component/pages/ContactPage'
@@ -21,9 +22,14 @@ import MyCourses from './component/core/dashboard/MyCourses';
 import CourseDetails from './component/pages/CourseDetails'
 import Catalog from './component/pages/Catalog';
 import Contact from "./component/pages/ContactPage"
+import ViewCourse from './component/pages/ViewCourse'
+import VideoDetails from './component/core/view course/VideoDetails';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import EditCourse from './component/core/dashboard/edit course';
+import { ACCOUNT_TYPE } from "./utils/constant"
+
 const appRouter = createBrowserRouter([
   {
     path: '/',
@@ -109,13 +115,24 @@ const appRouter = createBrowserRouter([
             element: <EditCourse />
           }
         ]
+      },
+      {
+        path: "/view-course",
+        element: <PrivateRoute children={<ViewCourse />} />,
+        children: [
+          {
+            path: ":courseId/section/:sectionId/sub-section/:subSectionId",
+            element: < VideoDetails />
+          }
+        ]
       }
-
     ]
   },
 
 ])
 function App() {
+  const { user } = useSelector((state) => state.profile)
+
   return (
     <div className='w-screen min-h-screen bg-richblack-900 flex flex-col font-inter'>
       <RouterProvider router={appRouter} />
