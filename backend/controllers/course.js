@@ -11,7 +11,15 @@ require("dotenv").config()
 const createCourse = async (req, res) => {
     try {
         // fetch data
-        const { courseName, courseDescription, status, whatYouWillLearn, price, category, tags: _tags, instructions: _instructions } = req.body
+        const { courseName,
+            courseDescription,
+            status,
+            whatYouWillLearn,
+            price,
+            category,
+            tags: _tags,
+            instructions: _instructions
+        } = req.body
 
         // fetch thumbnail
         const thumbnail = req.files.thumbnailImage
@@ -372,7 +380,7 @@ const getFullCourseDetails = async (req, res) => {
             .exec()
 
         let courseProgressCount = await CourseProgress.findOne({
-            courseID: courseId,
+            courseId: courseId,
             userId: userId,
         })
 

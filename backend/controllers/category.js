@@ -61,7 +61,7 @@ const categoryPageDetail = async (req, res) => {
     try {
         // Fetch category id from query parameters
         const categoryId = req.query.categoryId;
-        console.log("categoryId from query:", categoryId);
+        // console.log("categoryId from query:", categoryId);
 
         // get course for specific category id
         const selectedCategory = await Category.findById(categoryId)
@@ -72,7 +72,7 @@ const categoryPageDetail = async (req, res) => {
                 populate: "instructor",
 
             })
-        console.log("selected category:", selectedCategory)
+        // console.log("selected category:", selectedCategory)
         // validation
         if (!selectedCategory) {
             return res.status(404).json({

@@ -67,7 +67,7 @@ router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 // Delete a Course
 router.delete("/deleteCourse", auth, isInstructor, deleteCourse)
 // 
-router.post("/getFullCourseDetails", auth, isInstructor, getFullCourseDetails)
+router.post("/getFullCourseDetails", auth, isStudent, getFullCourseDetails)
 
 //Add a Section to a Course
 router.post("/addSection", auth, isInstructor, createSection)
@@ -82,7 +82,7 @@ router.delete("/deleteSubSection", auth, isInstructor, deleteSubSection)
 // Add a Sub Section to a Section
 router.post("/addSubSection", auth, isInstructor, createSubSection)
 
-router.put("/updateCourseProgress", auth, isStudent, updateCourseProgress);
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)

@@ -9,10 +9,14 @@ const createRating = async (req, res) => {
     try {
         // fetch data
         const { rating, review, courseId } = req.body
-        const { userId } = req.user.id
+        const userId = req.user.id
+        console.log("rating", rating);
+        console.log("review", review);
+        console.log("course id", courseId);
+        console.log("user id ", userId);
 
         // validate data
-        if (!rating || !review || !course || !user) {
+        if (!rating || !review || !courseId || !userId) {
             return res.status(400).json({
                 success: false,
                 message: "all fields are required"
@@ -20,8 +24,8 @@ const createRating = async (req, res) => {
         }
 
         // verify user is enroller in course not not
-        const userDetail = await Course.findById(userId)
-        if (!userDetail.courses(includes(courseId))) {
+        const userDetail = await User.findById(userId)
+        if (!userDetail.courses.includes(courseId)) {
             return res.status(400).json({
                 success: false,
                 message: "user is not enroll in the course"
@@ -48,7 +52,7 @@ const createRating = async (req, res) => {
         })
 
         // update course with ratingReview objectId
-        const updatedCourseDetail = await Course.findByIdAndUpdate({ courseId },
+        const updatedCourseDetail = await Course.findByIdAndUpdate(courseId,
             {
                 $push: {
                     ratingAndReview: ratingReview._id
