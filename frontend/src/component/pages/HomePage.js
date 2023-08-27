@@ -9,6 +9,7 @@ import TimelineSection from '../core/homepage/TimelineSection'
 import LearningLanguageSection from '../core/homepage/LearningLanguageSection'
 import InstructorSection from '../core/homepage/InstructorSection'
 import ExploreMore from '../core/homepage/ExploreMore'
+import ReviewSlider from '../common/ReviewSlider'
 const HomePage = () => {
     return (
         <div>
@@ -172,10 +173,10 @@ const HomePage = () => {
                 <InstructorSection />
 
                 {/* Reviews from Other Learner */}
-                {/* <h1 className="text-center text-4xl font-semibold mt-8">
+                <h1 className="text-center text-4xl font-semibold mt-8">
                     Reviews from other learners
                 </h1>
-                <ReviewSlider /> */}
+                <ReviewSlider />
             </div>
         </div>
     )

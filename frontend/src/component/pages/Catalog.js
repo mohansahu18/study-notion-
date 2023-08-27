@@ -119,7 +119,7 @@ const Catalog = () => {
                 </div>
                 <div className="py-8">
                     <CourseSlider
-                        Courses={catalogPageData?.data?.differentCategory?.courses}
+                        Courses={catalogPageData?.data?.differentCategory?.course}
                     />
                 </div>
             </div>
