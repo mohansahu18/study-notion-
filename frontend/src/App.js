@@ -29,7 +29,7 @@ import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import EditCourse from './component/core/dashboard/edit course';
 import { ACCOUNT_TYPE } from "./utils/constant"
-
+import Instructor from './component/core/dashboard/instructor dashboard/Instructor';
 const appRouter = createBrowserRouter([
   {
     path: '/',
@@ -113,6 +113,10 @@ const appRouter = createBrowserRouter([
           {
             path: 'edit-course/:courseId',
             element: <EditCourse />
+          },
+          {
+            path: "instructor",
+            element: <Instructor />
           }
         ]
       },
@@ -131,7 +135,7 @@ const appRouter = createBrowserRouter([
 
 ])
 function App() {
-  const { user } = useSelector((state) => state.profile)
+  // const { user } = useSelector((state) => state.profile)
 
   return (
     <div className='w-screen min-h-screen bg-richblack-900 flex flex-col font-inter'>
