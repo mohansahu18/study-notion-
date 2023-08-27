@@ -229,4 +229,39 @@ const getEnrolledCourses = async (req, res) => {
     }
 }
 
-module.exports = { updateProfile, deleteAccount, getEnrolledCourses, updateDisplayPicture, getAllUserDetails }
+const instructorDashboard = async (req, res) => {
+    try {
+        const courseDetails = await Course.find({ instructor: req.user.id })
+
+        const courseData = courseDetails.map((course) => {
+            const totalStudentsEnrolled = course.studentEnroll.length
+            const totalAmountGenerated = totalStudentsEnrolled * course.price
+
+            // Create a new object with the additional fields
+            const courseDataWithStats = {
+                _id: course._id,
+                courseName: course.courseName,
+                courseDescription: course.courseDescription,
+                // Include other course properties as needed
+                totalStudentsEnrolled,
+                totalAmountGenerated,
+            }
+
+            return courseDataWithStats
+        })
+
+        res.status(200).json({
+            success: true,
+            message: "successfully fetch data",
+            courses: courseData
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error: error
+        })
+    }
+}
+module.exports = { updateProfile, deleteAccount, instructorDashboard, getEnrolledCourses, updateDisplayPicture, getAllUserDetails }
