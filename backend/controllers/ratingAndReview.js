@@ -140,6 +140,9 @@ const getAllRatingAndReview = async (req, res) => {
                 path: "course",
                 select: "courseName"
             })
+        // const allRatingAndReview = await RatingAndReview.find({})
+        //     .populate("course").populate("user")
+        // console.log("allRatingAndReview : - >", allRatingAndReview);
         return res.status(200).json({
             success: true,
             message: "successfully get all rating and review",

@@ -110,7 +110,7 @@ const categoryPageDetail = async (req, res) => {
                     path: "instructor",
                 },
             })
-        const allCourses = allCategories.flatMap((category) => category.courses)
+        const allCourses = allCategories.flatMap((category) => category.course)
         const mostSellingCourses = allCourses
             .sort((a, b) => b.sold - a.sold)
             .slice(0, 10)
