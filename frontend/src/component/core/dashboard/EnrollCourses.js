@@ -9,13 +9,15 @@ import { getUserEnrolledCourses } from ".././../../services/operation/profileAPI
 export default function EnrolledCourses() {
     const { token } = useSelector((state) => state.auth)
     const navigate = useNavigate()
-
+    const [Loading, setLoading] = useState(false);
     const [enrolledCourses, setEnrolledCourses] = useState(null)
     const getEnrolledCourses = async () => {
         try {
-            console.log("sending token to getUserEnrolledCourses", token);
+            setLoading(true)
+            // console.log("sending token to getUserEnrolledCourses", token);
             const res = await getUserEnrolledCourses(token);
-            console.log(res);
+            // console.log(res);
+            setLoading(false)
             setEnrolledCourses(res);
         } catch (error) {
             console.log("Could not fetch enrolled courses.")
@@ -25,6 +27,13 @@ export default function EnrolledCourses() {
         getEnrolledCourses();
     }, [])
 
+    if (Loading) {
+        return (
+            <div className='flex h-[calc(100vh)] w-full justify-center items-center'>
+                <div className='spinner'></div>
+            </div>
+        )
+    }
     return (
         <>
             <div className="text-3xl text-richblack-50">Enrolled Courses</div>
@@ -46,7 +55,7 @@ export default function EnrolledCourses() {
                         <p className="flex-1 px-2 py-3">Progress</p>
                     </div>
                     {/* Course Names */}
-                    {console.log("enrolledCourses are : - >", enrolledCourses)}
+                    {/* {console.log("enrolledCourses are : - >", enrolledCourses)} */}
                     {enrolledCourses.map((course, i, arr) => (
                         <div
                             className={`flex items-center border border-richblack-700 ${i === arr.length - 1 ? "rounded-b-lg" : "rounded-none"

@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 const PrivateRoute = ({ children }) => {
 
     const { token } = useSelector((state) => state.auth);
-    console.log("token from private rouye", token);
+    // console.log("token from private rouye", token);
     if (token !== null)
         return children
     else

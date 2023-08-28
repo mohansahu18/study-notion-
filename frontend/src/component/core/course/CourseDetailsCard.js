@@ -94,7 +94,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
                             This Course Includes :
                         </p>
                         <div className="flex flex-col gap-3 text-sm text-caribbeangreen-100">
-                            {console.log(course)};
+                            {/* {console.log(course)}; */}
                             {course?.instructions?.map((item, i) => {
                                 return (
                                     <p className={`flex gap-2`} key={i}>

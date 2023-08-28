@@ -57,7 +57,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
                 className="rounded-lg bg-richblack-700 p-6 px-8"
                 id="nestedViewContainer"
             >
-                {console.log("course content from nested view ; - >", course.courseContent)}
+                {/* {console.log("course content from nested view ; - >", course.courseContent)} */}
                 {course.courseContent.map((section) => (
                     // Section Dropdown
                     <details key={section._id} open>
@@ -67,7 +67,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
                                 <RxDropdownMenu className="text-2xl text-richblack-50" />
                                 <p className="font-semibold text-richblack-50">
                                     {section.sectionName}
-                                    {console.log("section name: - >", section.sectionName)}
+                                    {/* {console.log("section name: - >", section.sectionName)} */}
                                 </p>
                             </div>
                             <div className="flex items-center gap-x-3">

@@ -1,10 +1,10 @@
 import { toast } from "react-hot-toast"
 
 import { updateCompletedLectures } from "../../slice/viewCourseSlice"
-// import { setLoading } from "../../slices/profileSlice";
+// import { setLoading } from "../../slice/profileSlice";
 import { apiConnector } from "../apiConnector"
 import { courseEndpoints } from "../api"
-
+// import { useDispatch } from "react-redux"
 const {
     COURSE_DETAILS_API,
     COURSE_CATEGORIES_API,
@@ -285,7 +285,7 @@ export const deleteSubSection = async (data, token) => {
 // fetching all courses under a specific instructor
 export const fetchInstructorCourses = async (token) => {
     let result = []
-    const toastId = toast.loading("Loading...")
+    // const toastId = toast.loading("Loading...")
     try {
         const response = await apiConnector(
             "GET",
@@ -306,7 +306,7 @@ export const fetchInstructorCourses = async (token) => {
         const errorResponse = error?.response?.data?.message
         toast.error(errorResponse)
     }
-    toast.dismiss(toastId)
+    // toast.dismiss(toastId)
     return result
 }
 
@@ -333,8 +333,8 @@ export const deleteCourse = async (data, token) => {
 
 // get full details of a course
 export const getFullDetailsOfCourse = async (courseId, token) => {
-    const toastId = toast.loading("Loading...")
-    //   dispatch(setLoading(true));
+    // const toastId = toast.loading("Loading...")
+    // dispatch(setLoading(true));
     let result = null
     try {
         const response = await apiConnector(
@@ -360,15 +360,15 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
         toast.error(errorResponse)
         // toast.error(error.response.data.message);
     }
-    toast.dismiss(toastId)
-    //   dispatch(setLoading(false));
+    // toast.dismiss(toastId)
+    // dispatch(setLoading(false));
     return result
 }
 
 // mark a lecture as complete
 export const markLectureAsComplete = async (data, token) => {
     let result = null
-    console.log("mark complete data", data)
+    // console.log("mark complete data", data)
     const toastId = toast.loading("Loading...")
     try {
         const response = await apiConnector("POST", LECTURE_COMPLETION_API, data, {

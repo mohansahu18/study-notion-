@@ -111,7 +111,7 @@ export default function MyProfile() {
                             <p className="text-sm font-medium text-richblack-5">
                                 {(formattedDate(user?.additionalDetails?.dateOfBirth)) ??
                                     "Add Date Of Birth"}
-                                {console.log((formattedDate(user?.additionalDetails?.dateOfBirth)))}
+                                {/* {console.log((formattedDate(user?.additionalDetails?.dateOfBirth)))} */}
                             </p>
                         </div>
                     </div>

@@ -26,7 +26,6 @@ function CourseDetails() {
     // Getting courseId from url parameter
     const { courseId } = useParams()
     // console.log(`course id: ${courseId}`)
-
     // Declare a state to save the course details
     const [response, setResponse] = useState(null)
     const [confirmationModal, setConfirmationModal] = useState(null)
@@ -34,7 +33,9 @@ function CourseDetails() {
         // Calling fetchCourseDetails function to fetch the details
         (async () => {
             try {
+                loading(true)
                 const res = await fetchCourseDetails(courseId)
+                loading(false)
                 // console.log("course details res: ", res)
                 setResponse(res)
             } catch (error) {

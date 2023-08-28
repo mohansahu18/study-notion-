@@ -42,8 +42,8 @@ export function getUserDetails(token, navigate) {
 }
 
 export async function getUserEnrolledCourses(token) {
-    console.log("token send from getUserEnrolledCourses", token);
-    const toastId = toast.loading("Loading...")
+    // console.log("token send from getUserEnrolledCourses", token);
+    // const toastId = toast.loading("Loading...")
     let result = []
     try {
         const response = await apiConnector(
@@ -70,12 +70,12 @@ export async function getUserEnrolledCourses(token) {
         console.log(`tost error: - > ${errorResponse}`);
         toast.error(errorResponse)
     }
-    toast.dismiss(toastId)
+    // toast.dismiss(toastId)
     return result
 }
 
 export async function getInstructorData(token) {
-    const toastId = toast.loading("Loading...")
+    // const toastId = toast.loading("Loading...")
     let result = []
     try {
         const response = await apiConnector("GET", GET_INSTRUCTOR_DATA_API, null, {
@@ -90,6 +90,6 @@ export async function getInstructorData(token) {
         console.log(`tost error: - > ${errorResponse}`);
         toast.error(errorResponse)
     }
-    toast.dismiss(toastId)
+    // toast.dismiss(toastId)
     return result
 }

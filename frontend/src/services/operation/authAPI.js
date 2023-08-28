@@ -12,7 +12,7 @@ const {
     RESETPASSWORD_API,
 } = endpoints
 
-console.log("send otp api url: -|>", SENDOTP_API);
+// console.log("send otp api url: -|>", SENDOTP_API);
 const sendOtp = (email, navigate) => {
     return async (dispatch) => {
         const toastId = toast.loading("Loading...")

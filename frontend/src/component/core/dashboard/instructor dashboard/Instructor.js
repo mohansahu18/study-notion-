@@ -19,7 +19,7 @@ export default function Instructor() {
             const instructorApiData = await getInstructorData(token);
             const result = await fetchInstructorCourses(token);
 
-            console.log(instructorApiData);
+            // console.log(instructorApiData);
 
             if (instructorApiData.length)
                 setInstructorData(instructorApiData);
@@ -38,13 +38,19 @@ export default function Instructor() {
         (acc, curr) => acc + curr.totalAmountGenerated,
         0
     )
-    console.log(totalAmount);
+    // console.log(totalAmount);
 
     const totalStudents = instructorData?.reduce(
         (acc, curr) => acc + curr.totalStudentsEnrolled,
         0
     )
-
+    if (loading) {
+        return (
+            <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+                <div className="spinner"></div>
+            </div>
+        )
+    }
 
     return (
         <div>

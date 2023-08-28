@@ -20,6 +20,7 @@ export default function ViewCourse() {
     const { token } = useSelector((state) => state.auth)
     const { user } = useSelector((store) => store.profile)
     const dispatch = useDispatch()
+    const [loading, setLoading] = useState(false)
     const [reviewModal, setReviewModal] = useState(false)
 
     useEffect(() => {
@@ -27,11 +28,15 @@ export default function ViewCourse() {
             user.accountType === ACCOUNT_TYPE.STUDENT
         ) {
             ; (async () => {
+                setLoading(true)
                 const courseData = await getFullDetailsOfCourse(courseId, token)
-                console.log("Course Data here... ", courseData)
+                setLoading(false)
+
+                // console.log("Course Data here... ", courseData)
                 dispatch(setCourseSectionData(courseData?.courseDetails?.courseContent))
                 dispatch(setEntireCourseData(courseData?.courseDetails))
                 dispatch(setCompletedLectures(courseData?.completedVideos))
+
                 let lectures = 0
                 courseData?.courseDetails?.courseContent?.forEach((sec) => {
                     lectures += sec.subSection.length
@@ -42,7 +47,13 @@ export default function ViewCourse() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
+    if (loading) {
+        return (
+            <div className="flex h-[calc(100vh)] w-full justify-center items-center">
+                <div className="spinner"></div>
+            </div>
+        )
+    }
     return (
         <>
             {

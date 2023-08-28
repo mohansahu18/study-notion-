@@ -54,7 +54,7 @@ const RatingSlider = () => {
                 className="max-h-[30rem] text-white"
 
             >
-                {console.log("Review are  : ->", Reviews)}
+                {/* {console.log("Review are  : ->", Reviews)} */}
                 {
                     Reviews?.map((review, index) => (
                         <SwiperSlide
