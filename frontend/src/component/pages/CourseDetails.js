@@ -18,27 +18,35 @@ import Error from "../pages/ErrorPage"
 function CourseDetails() {
     const { user } = useSelector((state) => state.profile)
     const { token } = useSelector((state) => state.auth)
-    const { loading } = useSelector((state) => state.profile)
+    // const { loading } = useSelector((state) => state.profile)
     const { paymentLoading } = useSelector((state) => state.course)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     // Getting courseId from url parameter
     const { courseId } = useParams()
-    // console.log(`course id: ${courseId}`)
+    console.log(`course id: ${courseId}`)
     // Declare a state to save the course details
     const [response, setResponse] = useState(null)
+    const [loading, setLoading] = useState(false)
     const [confirmationModal, setConfirmationModal] = useState(null)
     useEffect(() => {
         // Calling fetchCourseDetails function to fetch the details
-        (async () => {
+        console.log("calling api ............");
+        ; (async () => {
             try {
-                loading(true)
+                console.log("calling api try block ............");
+
+                setLoading(true)
                 const res = await fetchCourseDetails(courseId)
-                loading(false)
-                // console.log("course details res: ", res)
+                setLoading(false)
+                console.log("course details res: ", res)
                 setResponse(res)
+                console.log("calling api try block end............");
+
             } catch (error) {
+                console.log("calling api error in ctch block............");
+                console.log(error);
                 console.log("Could not fetch Course Details")
             }
         })()
@@ -86,7 +94,7 @@ function CourseDetails() {
     if (!response.success) {
         return <Error />
     }
-    // console.log("response : - >", response);
+    console.log("response : - >", response);
     const {
         _id: course_id,
         courseName,

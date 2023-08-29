@@ -32,7 +32,7 @@ export default function Upload({
                 toast.error("Image size exceeds the limit of 500Kb"); // Display error toast
                 return;
             } else if (video && file.size > MAX_FILE_SIZE.MAX_VIDEO_SIZE) {
-                toast.error("Video size exceeds the limit of 1mb"); // Display error toast
+                toast.error("Video size exceeds the limit of 2 mb"); // Display error toast
                 return;
             }
         }
