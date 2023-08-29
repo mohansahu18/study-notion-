@@ -57,19 +57,19 @@ const Header = () => {
                     {/* nav links */}
                     <nav>
                         <ul className='flex gap-x-6 text-richblack-25'>
-                            {NavbarLinks.map((element, index) => (
+                            {NavbarLinks?.map((element, index) => (
                                 <li key={index}>
                                     {element.title === 'Catalog' ? (
                                         <div className='flex items-center gap-1 group'>
                                             <p>
-                                                {element.title}
+                                                {element?.title}
                                             </p>
                                             <BsChevronDown />
                                             <div className="invisible absolute left-[45%] top-[5%] z-[1000] flex w-[200px] translate-x-[-50%] translate-y-[3em] flex-col rounded-lg bg-richblack-5 p-4 text-richblack-900 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-[1.65em] group-hover:opacity-100 lg:w-[300px]">
                                                 <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5">
                                                 </div>
                                                 {
-                                                    subLinks.length ? (
+                                                    subLinks?.length ? (
                                                         <>
                                                             {subLinks
                                                                 ?.map((subLink, i) => (

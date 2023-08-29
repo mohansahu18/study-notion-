@@ -45,7 +45,11 @@ app.use("/api/v1/course", courseRoutes)
 app.use("/api/v1/payment", paymentRoutes)
 app.use("/api/v1/reach", contactRoutes)
 
-
+app.get("/", (req, res) => {
+    res.status(200).json({
+        message: "Welcome to the API"
+    })
+});
 app.listen(PORT, () => {
     console.log(`server started on port no. ${PORT}`);
 })
