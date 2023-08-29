@@ -1,4 +1,5 @@
 const express = require("express")
+const FRONTEND_URL = process.env.FRONTEND_URL
 
 const dbconnection = require("./config/database")
 const cloudinaryConnect = require("./config/cloudinary")
@@ -25,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: FRONTEND_URL,
         credentials: true
     })
 )

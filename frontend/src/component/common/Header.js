@@ -23,7 +23,7 @@ const Header = () => {
         try {
             const result = await apiConnector("GET", courseEndpoints.COURSE_CATEGORIES_API)
             // console.log("result:", JSON.stringify(result.data.data, null, 2));
-            setSubLinks(result.data.data)
+            setSubLinks(result?.data?.data)
             // console.log("subLinks", subLinks);
         } catch (err) {
             console.log(`error while fetching subLinks : - > ${err}`);
@@ -59,7 +59,7 @@ const Header = () => {
                         <ul className='flex gap-x-6 text-richblack-25'>
                             {NavbarLinks?.map((element, index) => (
                                 <li key={index}>
-                                    {element.title === 'Catalog' ? (
+                                    {element?.title === 'Catalog' ? (
                                         <div className='flex items-center gap-1 group'>
                                             <p>
                                                 {element?.title}
@@ -81,7 +81,7 @@ const Header = () => {
                                                                         className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
                                                                         key={i}
                                                                     >
-                                                                        <p>{subLink.name}</p>
+                                                                        <p>{subLink?.name}</p>
                                                                     </Link>
                                                                 ))}
                                                         </>
@@ -157,12 +157,12 @@ const Header = () => {
                     {/* nav links */}
                     <nav className={`absolute z-40 left-0 top-0 w-[60%] h-[100vh] bg-richblack-800 ${navVisible ? 'visible ' : 'invisible '}`}>
                         <ul className={`flex flex-col items-center justify-center gap-y-20 pt-5 text-richblack-25 `}>
-                            {NavbarLinks.map((element, index) => (
+                            {NavbarLinks?.map((element, index) => (
                                 <li key={index}>
-                                    {element.title === 'Catalog' ? (
+                                    {element?.title === 'Catalog' ? (
                                         <div className="border-2 border-black flex items-center gap-1 group">
                                             <p onClick={() => setHover(false)} >
-                                                {element.title}
+                                                {element?.title}
                                             </p>
                                             <BiRightArrow />
                                             <div className={`${hover ? 'hidden' : 'visible'} invisible absolute left-[120%] top-[14%] z-[1000] flex w-[200px] translate-x-[-50%] translate-y-[3em] flex-col rounded-lg bg-richblack-5 p-4 text-richblack-900 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-[1.65em] group-hover:opacity-100 lg:w-[300px] `}>
@@ -172,7 +172,7 @@ const Header = () => {
                                                 </div>
 
                                                 {
-                                                    subLinks.length ? (
+                                                    subLinks?.length ? (
                                                         <>
                                                             {subLinks
                                                                 ?.map((subLink, i) => (
@@ -187,7 +187,7 @@ const Header = () => {
                                                                         <p className={`${hover ? ' group-hover:invisible' : 'visible'}`} onClick={() => {
                                                                             setNavVisible(false)
                                                                             setHover(true)
-                                                                        }}>{subLink.name}</p>
+                                                                        }}>{subLink?.name}</p>
                                                                     </Link>
                                                                 ))}
                                                         </>
