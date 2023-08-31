@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { BiInfoCircle } from "react-icons/bi"
+import { toast } from "react-hot-toast"
 import { HiOutlineGlobeAlt } from "react-icons/hi"
 import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
+import { ACCOUNT_TYPE } from "../../utils/constant"
 import ConfirmationModal from "../common/ConfirmationModal"
 import RatingStars from "../common/RatingStars"
 import CourseAccordionBar from "../core/course/CourseAccordionBar"
@@ -14,6 +16,7 @@ import { fetchCourseDetails } from "../../services/operation/courseDetailsAPI"
 import { BuyCourse } from "../../services/operation/studentFeaturesAPI"
 import GetAvgRating from "../../utils/avgRating"
 import Error from "../pages/ErrorPage"
+import { addToCart } from '../../slice/cartSlice'
 
 function CourseDetails() {
     const { user } = useSelector((state) => state.profile)
@@ -32,20 +35,20 @@ function CourseDetails() {
     const [confirmationModal, setConfirmationModal] = useState(null)
     useEffect(() => {
         // Calling fetchCourseDetails function to fetch the details
-        console.log("calling api ............");
+        // console.log("calling api ............");
         ; (async () => {
             try {
-                console.log("calling api try block ............");
+                // console.log("calling api try block ............");
 
                 setLoading(true)
                 const res = await fetchCourseDetails(courseId)
                 setLoading(false)
-                console.log("course details res: ", res)
+                // console.log("course details res: ", res)
                 setResponse(res)
-                console.log("calling api try block end............");
+                // console.log("calling api try block end............");
 
             } catch (error) {
-                console.log("calling api error in ctch block............");
+                // console.log("calling api error in ctch block............");
                 console.log(error);
                 console.log("Could not fetch Course Details")
             }
@@ -124,6 +127,26 @@ function CourseDetails() {
         })
     }
 
+    const handleAddToCart = () => {
+        if (user && user?.accountType === ACCOUNT_TYPE.INSTRUCTOR) {
+            toast.error("You are an Instructor. You can't buy a course.")
+            return
+        }
+        if (token) {
+            console.log(thumbnail, price, courseId);
+            dispatch(addToCart(response.data?.courseDetail[0]))
+            return
+        }
+        setConfirmationModal({
+            text1: "You are not logged in!",
+            text2: "Please login to add To Cart",
+            btn1Text: "Login",
+            btn2Text: "Cancel",
+            btn1Handler: () => navigate("/login"),
+            btn2Handler: () => setConfirmationModal(null),
+        })
+    }
+
     if (paymentLoading) {
         // console.log("payment loading")
         return (
@@ -182,10 +205,28 @@ function CourseDetails() {
                             <p className="space-x-3 pb-4 text-3xl font-semibold text-richblack-5">
                                 Rs. {price}
                             </p>
-                            <button className="yellowButton" onClick={handleBuyCourse}>
+                            {/* <button className="yellowButton" onClick={handleBuyCourse}>
                                 Buy Now
                             </button>
-                            <button className="blackButton">Add to Cart</button>
+                            <button className="blackButton">Add to Cart</button> */}
+                            <button
+                                className="yellowButton"
+                                onClick={
+                                    user && response?.data?.courseDetail[0]?.studentEnroll?.includes(user?._id)
+                                        ? () => navigate("/dashboard/enrolled-courses")
+                                        : handleBuyCourse
+                                }
+                            >
+                                {user && response?.data?.courseDetail[0]?.studentEnroll?.includes(user?._id)
+                                    ? "Go To Course"
+                                    : "Buy Now"}
+                            </button>
+                            {(!user || !response?.data?.courseDetail[0]?.studentEnroll?.includes(user?._id)) && (
+                                <button onClick={handleAddToCart} className="blackButton">
+                                    Add to Cart
+                                </button>
+                            )}
+
                         </div>
                     </div>
                     {/* Courses Card */}
@@ -198,7 +239,7 @@ function CourseDetails() {
                         />
                     </div>
                 </div>
-            </div>
+            </div >
             <div className="mx-auto box-content px-4 text-start text-richblack-5 lg:w-[1260px]">
                 <div className="mx-auto max-w-maxContentTab lg:mx-0 xl:max-w-[810px]">
                     {/* What will you learn section */}
