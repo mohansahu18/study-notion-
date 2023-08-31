@@ -28,17 +28,19 @@ Study Notion is an ED Tech (Education Technology) web application developed usin
 https://github.com/mohansahu18/study-notion-/assets/123477420/2ce5ecf2-b7a1-4a5b-91ef-70ec29d6fff2
 
 # Screenshots
-![Screenshot (40)](https://github.com/mohansahu18/study-notion-/assets/123477420/34bcfee9-3f4f-4b72-b8ea-ddc14c12fb50)
-![Screenshot (42)](https://github.com/mohansahu18/study-notion-/assets/123477420/e70d05b4-dacf-4497-acb3-f05427bba099)
+![Screenshot (40)](https://github.com/mohansahu18/study-notion-/assets/123477420/cf47e0e2-8541-4339-a84a-efdbc9c0bba8)
+![Screenshot (42)](https://github.com/mohansahu18/study-notion-/assets/123477420/f4b6dbb0-808d-4c34-b04c-3fdf5c3ef24c)
+
 
 # Screenshots Of Student Dashboard
-![Screenshot (63)](https://github.com/mohansahu18/study-notion-/assets/123477420/fd6e53c7-922d-449e-a9f9-4d7cb6d26c29)
-![Screenshot (64)](https://github.com/mohansahu18/study-notion-/assets/123477420/4abcb7e9-ea4d-40f9-a6c4-7fd76012fd72)
-![Screenshot (61)](https://github.com/mohansahu18/study-notion-/assets/123477420/6918c356-e053-4e42-8b02-f84547fa5cbf)
-![Screenshot (62)](https://github.com/mohansahu18/study-notion-/assets/123477420/58b5f09b-0bb4-47c5-9501-fd06be2268f1)
+![Screenshot (63)](https://github.com/mohansahu18/study-notion-/assets/123477420/dfb9bd9f-e443-4251-8edd-b01a3f480af6)
+![Screenshot (64)](https://github.com/mohansahu18/study-notion-/assets/123477420/9e684aec-c2c0-4d12-b5ef-43184ea976a6)
+![Screenshot (61)](https://github.com/mohansahu18/study-notion-/assets/123477420/6be01df6-e779-4c5d-a2b0-86346fd43250)
+![Screenshot (62)](https://github.com/mohansahu18/study-notion-/assets/123477420/e79fdb9a-2bf1-4d73-9cf0-6632c5856a78)
 
 # Screenshots Of Instructor Dashboard
-![Screenshot (65)](https://github.com/mohansahu18/study-notion-/assets/123477420/40404847-d87f-4cf7-bf7a-3e26a5d4ccd6)
-![Screenshot (66)](https://github.com/mohansahu18/study-notion-/assets/123477420/bc079cd4-51f2-4d5b-87fc-285a66e4ee88)
+![Screenshot (65)](https://github.com/mohansahu18/study-notion-/assets/123477420/5b3a01ef-14ce-4142-92f4-ff2264528b75)
+![Screenshot (66)](https://github.com/mohansahu18/study-notion-/assets/123477420/06c75706-e917-4751-a95b-4332f60650c2)
+
 
 ***
